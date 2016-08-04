@@ -34,7 +34,4 @@ public class NavigationHelper extends HelperBase {
             driver.get(manager.baseUrl + "/addressbookv4.1.4/");
         }
     }
-
-
-
 }

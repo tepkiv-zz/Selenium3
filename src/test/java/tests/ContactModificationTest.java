@@ -10,9 +10,7 @@ import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by vpetrenko on 13.01.2015.
- */
+
 public class ContactModificationTest extends TestBase {
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactModification(ContactData contact) {

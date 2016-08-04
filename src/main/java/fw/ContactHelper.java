@@ -22,13 +22,12 @@ public class ContactHelper extends HelperBase {
 		List<ContactData> contacts = new ArrayList<ContactData>();
 
 		//Find all checkboxes
-
 		List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
 
 		for (WebElement checkbox : checkboxes) {
 			ContactData contact = new ContactData();
 			String title = checkbox.getAttribute("title");
-			contact.firstName = title.substring("Select (".length(),title.length() - ")".length());
+			contact.firstName = title.substring("Select (".length(),title.length() - ")".length()).trim();
 			// <list> add()
 			contacts.add(contact);
 		}
@@ -51,12 +50,14 @@ public class ContactHelper extends HelperBase {
 		select(By.name("bday"), "4");
 		select(By.name("bmonth"), "April");
 
-		Select sel = new Select(driver.findElement(By.name("new_group")));
-		try{
-			sel.selectByValue(groupName);
-		}catch (Exception e){
-			sel.selectByIndex(1);
-		}
+		if(driver.findElements(By.name("new_group")).size() != 0){
+                Select sel = new Select(driver.findElement(By.name("new_group")));
+            try {
+                sel.selectByValue(groupName);
+            } catch (Exception e) {
+                sel.selectByIndex(1);
+            }
+        }
 	}
 
 	public void fillContactForm(ContactData contactData, boolean formType) {
@@ -88,6 +89,7 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void openContactDetails(int index){
+        waitUntilContactListAppear();
 		click(By.xpath("//a[@href='edit.php?id=" + index + "']"));
 		// click(By.xpath("//input[@name='selected[]'][" + index + "]"));
 
@@ -97,7 +99,7 @@ public class ContactHelper extends HelperBase {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 	public void waitUntilContactListAppear(){
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("maintable")));
 	}
 	public void submitDeleteContact() {

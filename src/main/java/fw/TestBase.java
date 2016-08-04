@@ -21,8 +21,7 @@ public class TestBase {
 
 	@AfterTest
 	public void tearDown() throws Exception {
-		app.stop();	
-		
+		//app.stop();
 	}
 
 
@@ -42,7 +41,7 @@ public class TestBase {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (int i = 0; i < 1; i++) {
 			ContactData contact = new ContactData();
-			contact.firstName = generateRandomString();
+			contact.firstName = "";  //generateRandomString();
 			contact.lastName = "";
 			contact.address1 = "";
 			contact.home = "";

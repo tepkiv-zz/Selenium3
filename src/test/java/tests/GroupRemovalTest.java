@@ -10,9 +10,7 @@ import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by vpetrenko on 22.12.2014.
- */
+
 public class GroupRemovalTest extends TestBase {
     @Test
     public void deleteGroup(){
