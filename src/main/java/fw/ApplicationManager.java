@@ -1,10 +1,12 @@
 package fw;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
@@ -20,10 +22,10 @@ public class ApplicationManager {
 	
 	public ApplicationManager(){
 
-      //  File chromeDriver = new File("D:\\git\\programming-for-testers\\chromedriver.exe");
-        //System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath() );
-		driver = new FirefoxDriver();
-        //driver = new ChromeDriver();
+        File chromeDriver = new File("D:\\Programs\\repo\\test-excercises-new\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
+		//driver = new FirefoxDriver();
+        driver = new ChromeDriver();
 		baseUrl = "http://127.0.0.1:8080";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
@@ -33,7 +35,6 @@ public class ApplicationManager {
 	}
 	
 	public void stop() {
-		// TODO Auto-generated method stub
 		driver.quit();
 	}
 	
@@ -57,6 +58,5 @@ public class ApplicationManager {
 		}
 		return contactHelper;
 	}
-
 
 }
