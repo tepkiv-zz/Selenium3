@@ -1,7 +1,14 @@
 package fw;
 
 
+import org.testng.annotations.DataProvider;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class GroupData implements Comparable<GroupData>{
+    private TestBase testBase = new TestBase();
 	private String name;
 	private String header;
 	private String footer;
@@ -12,6 +19,17 @@ public class GroupData implements Comparable<GroupData>{
 		this.footer = footer;
 	}
 	public GroupData(){}
+
+	@DataProvider
+	public Iterator<Object[]> randomValidGroupGenerator(){
+		List<Object[]> list = new ArrayList<Object[]>();
+		for (int i = 0; i < 5;i++){
+			GroupData group = new GroupData().withName(testBase.generateRandomString())
+					.withHeader(testBase.generateRandomString()).withFooter(testBase.generateRandomString());
+			list.add(new Object[]{group});
+		}
+		return list.iterator();
+	}
 
 	@Override
 	public String toString() {
@@ -24,28 +42,23 @@ public class GroupData implements Comparable<GroupData>{
 	}
 
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-		GroupData groupData = (GroupData) o;
+        GroupData groupData = (GroupData) o;
 
-		if (name != null ? !name.equals(groupData.name) : groupData.name != null) return false;
-		if (header != null ? !header.equals(groupData.header) : groupData.header != null) return false;
-		return footer != null ? footer.equals(groupData.footer) : groupData.footer == null;
+        return name != null ? name.equals(groupData.name) : groupData.name == null;
 
-	}
+    }
 
-	@Override
-	public int hashCode() {
-		int result = name != null ? name.hashCode() : 0;
-		result = 31 * result + (header != null ? header.hashCode() : 0);
-		result = 31 * result + (footer != null ? footer.hashCode() : 0);
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 
-	public int compareTo(GroupData other) {
+    public int compareTo(GroupData other) {
 		return this.name.toLowerCase().compareTo(other.name.toLowerCase());
 	}
 

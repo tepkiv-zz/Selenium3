@@ -41,6 +41,8 @@ public class TestBase {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (int i = 0; i < 1; i++) {
 			ContactData contact = new ContactData();
+//					.withFirstName("").withLastName("")
+//					.withAddress1("");
 			contact.firstName = "";  //generateRandomString();
 			contact.lastName = "";
 			contact.address1 = "";

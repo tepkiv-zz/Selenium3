@@ -1,4 +1,4 @@
-    package tests;
+    package tests.contact;
 
 import fw.ContactData;
 import fw.TestBase;

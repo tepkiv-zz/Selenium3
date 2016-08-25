@@ -1,4 +1,4 @@
-package tests;
+package tests.group;
 
 import fw.GroupData;
 import fw.TestBase;

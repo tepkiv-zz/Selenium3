@@ -1,4 +1,4 @@
-package tests;
+package tests.group;
 
 import static org.testng.Assert.assertEquals;
 

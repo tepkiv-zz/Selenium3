@@ -1,4 +1,4 @@
-package tests;
+package tests.contact;
 
 import fw.ContactData;
 import fw.TestBase;
@@ -11,31 +11,31 @@ import java.util.Random;
 import static org.testng.Assert.assertEquals;
 
 
-public class ContactModificationTest extends TestBase {
-    @Test(dataProvider = "randomValidContactGenerator")
-    public void testContactModification(ContactData contact) {
-        app.navigateTo().mainPage();
+public class ContactRemovalTest extends TestBase {
 
+    @Test
+    public void testContactRemoval(){
+        app.navigateTo().mainPage();
         List<ContactData> oldList = app.getContactHelper().getContacts();
-        System.out.println(oldList.size());
+        System.out.println("old list " + oldList.size());
 
         Random rnd = new Random();
-        int index = rnd.nextInt(oldList.size() - 1);
+        int index = rnd.nextInt(oldList.size()-1);
 
         app.getContactHelper().openContactDetails(index);
-        app.getContactHelper().fillContactForm(contact,true);
-        app.getGroupHelper().submitGroupModification();
+        app.getContactHelper().submitDeleteContact();
         app.navigateTo().mainPage();
+
+        app.driver.navigate().refresh();
         app.getContactHelper().waitUntilPageLoads();
+
         List <ContactData> newList = app.getContactHelper().getContacts();
-        System.out.println(newList.size());
+        System.out.println("newList list " + newList.size());
 
         oldList.remove(index);
-        oldList.add(contact);
+        System.out.println("old list " + oldList.size());
 
         Collections.sort(oldList);
-        Collections.sort(newList);
-        assertEquals(newList, oldList);
+        assertEquals(newList, oldList);//Actual Expected
     }
 }
-

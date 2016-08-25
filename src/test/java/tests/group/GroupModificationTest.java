@@ -1,4 +1,4 @@
-package tests;
+package tests.group;
 
 import fw.GroupData;
 import fw.TestBase;
@@ -14,7 +14,6 @@ public class GroupModificationTest extends TestBase {
     @DataProvider
     public Iterator<Object[]> randomValidGroupGenerator(){
         List<Object[]> list = new ArrayList<Object[]>();
-        //..
         for (int i = 0; i < 5;i++){
             GroupData group = new GroupData().withName(generateRandomString())
                     .withHeader(generateRandomString()).withFooter(generateRandomString());
@@ -23,9 +22,9 @@ public class GroupModificationTest extends TestBase {
         return list.iterator();
     }
 
-
     @Test(dataProvider = "randomValidGroupGenerator")
     public void deleteGroup(GroupData group) {
+        app.navigateTo().mainPage();
         List<GroupData> oldList = app.getGroupHelper().getGroups();
 
         Random rnd = new Random();
