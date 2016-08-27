@@ -1,17 +1,105 @@
 package fw;
 
 public class ContactData implements Comparable<ContactData> {
-    public String firstName;
-    public String lastName;
-    public String address1;
-    public String home;
-    public String mobilephonenumber;
-    public String workphonenumber;
-    public String email1;
-    public String email2;
-    public String byear;
-    public String secondaryaddress;
-    public String secondaryhomephonenumber;
+    private String firstName;
+    private String lastName;
+    private String address1;
+    private String home;
+    private String mobilephonenumber;
+    private String workphonenumber;
+    private String email1;
+    private String email2;
+    private String byear;
+    private String secondaryaddress;
+    private String secondaryhomephonenumber;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public String getHome() {
+        return home;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
+    }
+
+    public String getMobilephonenumber() {
+        return mobilephonenumber;
+    }
+
+    public void setMobilephonenumber(String mobilephonenumber) {
+        this.mobilephonenumber = mobilephonenumber;
+    }
+
+    public String getWorkphonenumber() {
+        return workphonenumber;
+    }
+
+    public void setWorkphonenumber(String workphonenumber) {
+        this.workphonenumber = workphonenumber;
+    }
+
+    public String getEmail1() {
+        return email1;
+    }
+
+    public void setEmail1(String email1) {
+        this.email1 = email1;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public String getByear() {
+        return byear;
+    }
+
+    public void setByear(String byear) {
+        this.byear = byear;
+    }
+
+    public String getSecondaryaddress() {
+        return secondaryaddress;
+    }
+
+    public void setSecondaryaddress(String secondaryaddress) {
+        this.secondaryaddress = secondaryaddress;
+    }
+
+    public String getSecondaryhomephonenumber() {
+        return secondaryhomephonenumber;
+    }
+
+    public void setSecondaryhomephonenumber(String secondaryhomephonenumber) {
+        this.secondaryhomephonenumber = secondaryhomephonenumber;
+    }
 
     public ContactData(String firstName, String lastName, String address1,
                        String home, String mobilePhoneNumber, String workPhoneNumber,

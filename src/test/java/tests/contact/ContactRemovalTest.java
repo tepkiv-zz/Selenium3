@@ -1,6 +1,7 @@
 package tests.contact;
 
 import fw.ContactData;
+import fw.ContactHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -16,20 +17,21 @@ public class ContactRemovalTest extends TestBase {
     @Test
     public void testContactRemoval(){
         app.navigateTo().mainPage();
-        List<ContactData> oldList = app.getContactHelper().getContacts();
+        ContactHelper contactHelper = app.getContactHelper();
+        List<ContactData> oldList = contactHelper.getContacts();
         System.out.println("old list " + oldList.size());
 
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
 
-        app.getContactHelper().openContactDetails(index);
-        app.getContactHelper().submitDeleteContact();
+        contactHelper.openContactDetails(index);
+        contactHelper.submitDeleteContact();
         app.navigateTo().mainPage();
 
         app.driver.navigate().refresh();
-        app.getContactHelper().waitUntilPageLoads();
+        contactHelper.waitUntilPageLoads();
 
-        List <ContactData> newList = app.getContactHelper().getContacts();
+        List <ContactData> newList = contactHelper.getContacts();
         System.out.println("newList list " + newList.size());
 
         oldList.remove(index);

@@ -1,6 +1,7 @@
 package tests.group;
 
 import fw.GroupData;
+import fw.GroupHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -12,16 +13,22 @@ import static org.testng.Assert.assertEquals;
 
 
 public class GroupRemovalTest extends TestBase {
+
+    GroupHelper groupHelper = app.getGroupHelper();
+
     @Test
     public void deleteGroup(){
-        List<GroupData> oldList = app.getGroupHelper().getGroups();
+        app.navigateTo().mainPage();
+        app.navigateTo().groupsPage();
+
+        List<GroupData> oldList = groupHelper.getGroups();
 
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
 
-        app.getGroupHelper().deleteGroup(index);
+        groupHelper.deleteGroup(index);
 
-        List <GroupData> newList = app.getGroupHelper().getGroups();
+        List <GroupData> newList = groupHelper.getGroups();
         // compare items in the lists
         oldList.remove(index);
         Collections.sort(oldList);

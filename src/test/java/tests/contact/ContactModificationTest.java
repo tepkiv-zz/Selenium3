@@ -1,6 +1,8 @@
 package tests.contact;
 
 import fw.ContactData;
+import fw.ContactHelper;
+import fw.GroupHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -12,22 +14,26 @@ import static org.testng.Assert.assertEquals;
 
 
 public class ContactModificationTest extends TestBase {
+    GroupHelper groupHelper = app.getGroupHelper();
+
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactModification(ContactData contact) {
         app.navigateTo().mainPage();
 
-        List<ContactData> oldList = app.getContactHelper().getContacts();
+        ContactHelper contactHelper = app.getContactHelper();
+        List<ContactData> oldList = contactHelper.getContacts();
         System.out.println(oldList.size());
 
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size() - 1);
 
-        app.getContactHelper().openContactDetails(index);
-        app.getContactHelper().fillContactForm(contact,true);
-        app.getGroupHelper().submitGroupModification();
+        contactHelper.openContactDetails(index);
+        contactHelper.fillContactForm(contact,true);
+        groupHelper.submitGroupModification();
+
         app.navigateTo().mainPage();
-        app.getContactHelper().waitUntilPageLoads();
-        List <ContactData> newList = app.getContactHelper().getContacts();
+        contactHelper.waitUntilPageLoads();
+        List <ContactData> newList = contactHelper.getContacts();
         System.out.println(newList.size());
 
         oldList.remove(index);

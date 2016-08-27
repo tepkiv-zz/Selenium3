@@ -22,7 +22,7 @@ public class ApplicationManager {
 	
 	public ApplicationManager(){
 
-        File chromeDriver = new File("D:\\Programs\\repo\\test-excercises-new\\chromedriver.exe");
+        File chromeDriver = new File("D:\\Programs\\repo\\test-excercises-new\\src\\test\\resources\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
 		//driver = new FirefoxDriver();
         driver = new ChromeDriver();

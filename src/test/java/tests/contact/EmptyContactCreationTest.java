@@ -1,8 +1,8 @@
 package tests.contact;
 
 
-
 import fw.ContactData;
+import fw.ContactHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -11,20 +11,21 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class EmptyContactCreationTest extends TestBase {
-  @Test
+    @Test
     public void TestEmptyContactCreation() throws Exception {
-      app.navigateTo().mainPage();
-      List<ContactData> oldList = app.getContactHelper().getContacts();
+        app.navigateTo().mainPage();
+        ContactHelper contactHelper = app.getContactHelper();
+        List<ContactData> oldList = contactHelper.getContacts();
 
-      app.getContactHelper().openContactPage();
-      ContactData contact = new ContactData("", "", "", "", "", "", "", "", "", "", "");
+        contactHelper.openContactPage();
+        ContactData contact = new ContactData("", "", "", "", "", "", "", "", "", "", "");
 
-      app.getContactHelper().fillContactForm(contact,true);
-      app.getContactHelper().submitContactCreation();
-      app.getContactHelper().openMainPage();
-      app.getContactHelper().waitUntilPageLoads();
+        contactHelper.fillContactForm(contact, true);
+        contactHelper.submitContactCreation();
+        contactHelper.openMainPage();
+        contactHelper.waitUntilPageLoads();
 
-      List <ContactData> newList = app.getContactHelper().getContacts();
-      assertEquals(newList, oldList);
-  }
+        List<ContactData> newList = contactHelper.getContacts();
+        assertEquals(newList, oldList);
+    }
 }
