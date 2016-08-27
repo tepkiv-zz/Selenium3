@@ -14,23 +14,78 @@ public class ContactData implements Comparable<ContactData> {
     public String secondaryhomephonenumber;
 
     public ContactData(String firstName, String lastName, String address1,
-                       String home, String mobilephonenumber, String workphonenumber,
-                       String email1, String email2, String byear,
-                       String secondaryaddress, String secondaryhomephonenumber) {
+                       String home, String mobilePhoneNumber, String workPhoneNumber,
+                       String email1, String email2, String bYear,
+                       String secondaryAddress, String secondaryHomePhoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address1 = address1;
         this.home = home;
-        this.mobilephonenumber = mobilephonenumber;
-        this.workphonenumber = workphonenumber;
+        this.mobilephonenumber = mobilePhoneNumber;
+        this.workphonenumber = workPhoneNumber;
         this.email1 = email1;
         this.email2 = email2;
-        this.byear = byear;
-        this.secondaryaddress = secondaryaddress;
-        this.secondaryhomephonenumber = secondaryhomephonenumber;
+        this.byear = bYear;
+        this.secondaryaddress = secondaryAddress;
+        this.secondaryhomephonenumber = secondaryHomePhoneNumber;
     }
 
     public ContactData() {
+    }
+
+    public ContactData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withAddress1(String address1) {
+        this.address1 = address1;
+        return this;
+    }
+
+    public ContactData withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactData withMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilephonenumber = mobilePhoneNumber;
+        return this;
+    }
+
+    public ContactData withWorkPhoneNumber(String workPhoneNumber) {
+        this.workphonenumber = workPhoneNumber;
+        return this;
+    }
+
+    public ContactData withEmail1(String email1) {
+        this.email1 = email1;
+        return this;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public ContactData withBirthDayYear(String bYear) {
+        this.byear = bYear;
+        return this;
+    }
+
+    public ContactData withSecondaryAddress(String secondaryAddress) {
+        this.secondaryaddress = secondaryAddress;
+        return this;
+    }
+
+    public ContactData withSecondaryPhoneNumber(String secondaryHomePhoneNumber) {
+        this.secondaryhomephonenumber = secondaryHomePhoneNumber;
+        return this;
     }
 
     @Override

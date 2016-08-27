@@ -9,10 +9,7 @@ import java.util.*;
 
 import static org.testng.Assert.assertEquals;
 
-
 public class ContactCreationTest extends TestBase {
-
-
 
     @Test(dataProvider = "randomValidContactGenerator")
      public void TestContactCreation(ContactData contact) throws Exception {

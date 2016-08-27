@@ -40,23 +40,24 @@ public class TestBase {
 	public Iterator<Object[]> randomValidContactGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (int i = 0; i < 1; i++) {
-			ContactData contact = new ContactData();
-//					.withFirstName("").withLastName("")
-//					.withAddress1("");
-			contact.firstName = "";  //generateRandomString();
-			contact.lastName = "";
-			contact.address1 = "";
-			contact.home = "";
-			contact.mobilephonenumber = "";
-			contact.workphonenumber = "";
-			contact.email1 = "";
-			contact.email2 = "";
-			contact.byear = "";
-			contact.secondaryaddress = "";
-			contact.secondaryhomephonenumber = "";
+			ContactData contact = new ContactData()
+			.withFirstName("").withLastName("").withAddress1("").withHome("").withMobilePhoneNumber("").withWorkPhoneNumber("")
+            .withEmail1("").withEmail2("").withBirthDayYear("").withSecondaryAddress("").withSecondaryPhoneNumber("");
+
 			list.add(new Object[]{contact});
 		}
 		return list.iterator();
 	}
+
+    @DataProvider
+    public Iterator<Object[]> randomValidGroupGenerator(){
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (int i = 0; i < 5;i++){
+            GroupData group = new GroupData().withName(generateRandomString())
+                    .withHeader(generateRandomString()).withFooter(generateRandomString());
+            list.add(new Object[]{group});
+        }
+        return list.iterator();
+    }
 
 }
