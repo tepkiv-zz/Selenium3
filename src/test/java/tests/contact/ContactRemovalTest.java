@@ -24,10 +24,9 @@ public class ContactRemovalTest extends TestBase {
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
 
-        contactHelper.openContactDetails(index);
-        contactHelper.submitDeleteContact();
-        app.navigateTo().mainPage();
+        contactHelper.openContactDetails(index).submitDeleteContact();
 
+        app.navigateTo().mainPage();
         app.driver.navigate().refresh();
         contactHelper.waitUntilPageLoads();
 

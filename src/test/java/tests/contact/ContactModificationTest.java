@@ -14,22 +14,22 @@ import static org.testng.Assert.assertEquals;
 
 
 public class ContactModificationTest extends TestBase {
-    GroupHelper groupHelper = app.getGroupHelper();
+
 
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactModification(ContactData contact) {
+        ContactHelper contactHelper = app.getContactHelper();
+
         app.navigateTo().mainPage();
 
-        ContactHelper contactHelper = app.getContactHelper();
         List<ContactData> oldList = contactHelper.getContacts();
         System.out.println(oldList.size());
 
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size() - 1);
 
-        contactHelper.openContactDetails(index);
-        contactHelper.fillContactForm(contact,true);
-        groupHelper.submitGroupModification();
+        contactHelper.openContactDetails(index).fillContactForm(contact,true);
+        contactHelper.submitContactUpdateOrCreation();
 
         app.navigateTo().mainPage();
         contactHelper.waitUntilPageLoads();

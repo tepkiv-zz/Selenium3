@@ -20,9 +20,7 @@ public class EmptyContactCreationTest extends TestBase {
         contactHelper.openContactPage();
         ContactData contact = new ContactData("", "", "", "", "", "", "", "", "", "", "");
 
-        contactHelper.fillContactForm(contact, true);
-        contactHelper.submitContactCreation();
-        contactHelper.openMainPage();
+        contactHelper.fillContactForm(contact, true).submitContactUpdateOrCreation().openMainPage();
         contactHelper.waitUntilPageLoads();
 
         List<ContactData> newList = contactHelper.getContacts();

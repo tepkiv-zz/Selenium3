@@ -11,10 +11,10 @@ import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTest extends TestBase {
 
-    ContactHelper contactHelper = app.getContactHelper();
-
     @Test(dataProvider = "randomValidContactGenerator")
     public void TestContactCreation(ContactData contact) throws Exception {
+        ContactHelper contactHelper = app.getContactHelper();
+
         app.navigateTo().mainPage();
 
         // save old state
@@ -23,9 +23,7 @@ public class ContactCreationTest extends TestBase {
         System.out.println("old list " + oldList.size());
 
         // actions
-        contactHelper.openContactPage();
-        contactHelper.fillContactForm(contact, ContactHelper.CREATION);
-        contactHelper.submitContactCreation();
+        contactHelper.openContactPage().fillContactForm(contact, ContactHelper.CREATION).submitContactUpdateOrCreation();
         contactHelper.openMainPage();
 
         //save new state

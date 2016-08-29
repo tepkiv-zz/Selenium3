@@ -43,8 +43,9 @@ public class ContactHelper extends HelperBase {
         return this;
     }
 
-    public ContactHelper submitContactCreation() {
-        click(By.name("submit"));
+    public ContactHelper submitContactUpdateOrCreation() {
+        String customXpath = "//input[@name='update' or @name='update']";
+        driver.findElement(By.xpath(customXpath)).click();
         return this;
     }
 
@@ -94,8 +95,9 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper openContactDetails(int index) {
         waitUntilContactListAppear();
-        click(By.xpath("//a[@href='edit.php?id=" + index + "']"));
-        // click(By.xpath("//input[@name='selected[]'][" + index + "]"));
+        List<WebElement> editLinks = driver.findElements(By.xpath("//a[contains(@href,'edit.php')]"));
+        editLinks.get(index).click();
+        // click(By.xpath("//a[@href='edit.php?id=" + index + "']"));
         return this;
 
     }
