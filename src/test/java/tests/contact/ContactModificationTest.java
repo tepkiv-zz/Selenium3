@@ -1,8 +1,7 @@
 package tests.contact;
 
-import fw.ContactData;
-import fw.ContactHelper;
-import fw.GroupHelper;
+import fw.pages.ContactData;
+import fw.pages.ContactHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -20,18 +19,15 @@ public class ContactModificationTest extends TestBase {
     public void testContactModification(ContactData contact) {
         ContactHelper contactHelper = app.getContactHelper();
 
-        app.navigateTo().mainPage();
-
         List<ContactData> oldList = contactHelper.getContacts();
         System.out.println(oldList.size());
 
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size() - 1);
 
-        contactHelper.openContactDetails(index).fillContactForm(contact,true);
-        contactHelper.submitContactUpdateOrCreation();
+        contactHelper.modifyContact(index,contact);
 
-        app.navigateTo().mainPage();
+
         contactHelper.waitUntilPageLoads();
         List <ContactData> newList = contactHelper.getContacts();
         System.out.println(newList.size());

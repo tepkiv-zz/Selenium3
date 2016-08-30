@@ -1,7 +1,7 @@
 package tests.group;
 
-import fw.GroupData;
-import fw.GroupHelper;
+import fw.pages.GroupData;
+import fw.pages.GroupHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -18,8 +18,6 @@ public class GroupRemovalTest extends TestBase {
 
     @Test
     public void deleteGroup(){
-        app.navigateTo().mainPage();
-        app.navigateTo().groupsPage();
 
         List<GroupData> oldList = groupHelper.getGroups();
 

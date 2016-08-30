@@ -1,9 +1,9 @@
 package tests.contact;
 
-import fw.ContactData;
+import fw.pages.ContactData;
 import fw.TestBase;
 import org.testng.annotations.Test;
-import fw.ContactHelper;
+import fw.pages.ContactHelper;
 
 import java.util.*;
 
@@ -15,16 +15,12 @@ public class ContactCreationTest extends TestBase {
     public void TestContactCreation(ContactData contact) throws Exception {
         ContactHelper contactHelper = app.getContactHelper();
 
-        app.navigateTo().mainPage();
-
         // save old state
-
         List<ContactData> oldList = contactHelper.getContacts();
         System.out.println("old list " + oldList.size());
 
         // actions
-        contactHelper.openContactPage().fillContactForm(contact, ContactHelper.CREATION).submitContactUpdateOrCreation();
-        contactHelper.openMainPage();
+        contactHelper.createContact(contact);
 
         //save new state
         contactHelper.refreshPage();
@@ -43,4 +39,5 @@ public class ContactCreationTest extends TestBase {
         Collections.sort(newList);
         assertEquals(newList, oldList);//Actual Expected
     }
+
 }

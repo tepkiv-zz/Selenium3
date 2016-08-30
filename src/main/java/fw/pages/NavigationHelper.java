@@ -1,5 +1,7 @@
-package fw;
+package fw.pages;
 
+import fw.ApplicationManager;
+import fw.HelperBase;
 import org.openqa.selenium.By;
 
 public class NavigationHelper extends HelperBase {
@@ -25,13 +27,14 @@ public class NavigationHelper extends HelperBase {
 			return false;
 		}
 	}
-    private boolean onMainPage() {
+    public boolean onMainPage() {
         return driver.findElements(By.name("maintable")).size()>0;
     }
 
 	public void mainPage() {
         if (!onMainPage()) {
-            driver.get(manager.baseUrl + "/addressbookv4.1.4/");
+            click(By.linkText("home"));
+        	//driver.get(manager.baseUrl + "/addressbookv4.1.4/");
         }
     }
 }

@@ -1,7 +1,7 @@
 package tests.contact;
 
-import fw.ContactData;
-import fw.ContactHelper;
+import fw.pages.ContactData;
+import fw.pages.ContactHelper;
 import fw.TestBase;
 import org.testng.annotations.Test;
 
@@ -16,7 +16,6 @@ public class ContactRemovalTest extends TestBase {
 
     @Test
     public void testContactRemoval(){
-        app.navigateTo().mainPage();
         ContactHelper contactHelper = app.getContactHelper();
         List<ContactData> oldList = contactHelper.getContacts();
         System.out.println("old list " + oldList.size());
@@ -24,7 +23,7 @@ public class ContactRemovalTest extends TestBase {
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
 
-        contactHelper.openContactDetails(index).submitDeleteContact();
+        contactHelper.deleteContact(index);
 
         app.navigateTo().mainPage();
         app.driver.navigate().refresh();
@@ -39,4 +38,5 @@ public class ContactRemovalTest extends TestBase {
         Collections.sort(oldList);
         assertEquals(newList, oldList);//Actual Expected
     }
+
 }

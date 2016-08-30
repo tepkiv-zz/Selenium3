@@ -72,6 +72,8 @@ public abstract class HelperBase {
 		click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
 	}
 
-
+	public void refreshPage() {
+		driver.navigate().refresh();
+	}
 
 }

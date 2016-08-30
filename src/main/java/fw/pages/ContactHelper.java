@@ -1,5 +1,7 @@
-package fw;
+package fw.pages;
 
+import fw.ApplicationManager;
+import fw.HelperBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,19 +19,40 @@ public class ContactHelper extends HelperBase {
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
 
+    public void deleteContact(int index) {
+        openContactDetails(index).submitDeleteContact();
+    }
+
+    public ContactHelper modifyContact(int index, ContactData contact) {
+        openContactDetails(index).fillContactForm(contact,ContactHelper.CREATION).submitContactUpdateOrCreation();
+        openMainPage();
+        return this;
+    }
+    public ContactHelper createContact(ContactData contact) {
+        openContactPage().fillContactForm(contact, CREATION).submitContactUpdateOrCreation();
+        openMainPage();
+        return this;
+    }
+
+    private List<ContactData> cachedContacts  = new ArrayList<ContactData>();
+
     public List<ContactData> getContacts() {
+        if (cachedContacts == null) {
+            rebuildCache();
+        }
+        return cachedContacts;
+    }
 
-        List<ContactData> contacts = new ArrayList<ContactData>();
-
+    public void rebuildCache() {
+        manager.navigateTo().mainPage();
+        //List<ContactData> cachedContacts = new ArrayList<ContactData>();
         //Find all checkboxes
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-
         for (WebElement checkbox : checkboxes) {
             String title = checkbox.getAttribute("title");
             // <list> add()
-            contacts.add(new ContactData().withFirstName(title.substring("Select (".length(), title.length() - ")".length()).trim()));
+            cachedContacts.add(new ContactData().withFirstName(title.substring("Select (".length(), title.length() - ")".length()).trim()));
         }
-        return contacts;
     }
 
     public ContactHelper(ApplicationManager manager) {
@@ -37,6 +60,19 @@ public class ContactHelper extends HelperBase {
         // TODO Auto-generated constructor stub
     }
 
+    private boolean onСontactsPage(){
+        String currentUrl = driver.getCurrentUrl();
+        if(currentUrl.contains("/edit.php") &&
+                driver.findElement(By.xpath("//input[@value='Enter' and @type='submit' and @name='submit']")).isDisplayed()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * -----------------------------------------------------------------------------------------------------------------
+     */
     public ContactHelper openMainPage() {
         // open main page
         driver.get(manager.baseUrl + "/addressbookv4.1.4/");
@@ -44,7 +80,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public ContactHelper submitContactUpdateOrCreation() {
-        String customXpath = "//input[@name='update' or @name='update']";
+        String customXpath = "//input[@name='submit' or @name='update']";
         driver.findElement(By.xpath(customXpath)).click();
         return this;
     }
@@ -117,7 +153,7 @@ public class ContactHelper extends HelperBase {
         return this;
     }
 
-    public void refreshPage() {
-        driver.navigate().refresh();
-    }
+
+
+
 }

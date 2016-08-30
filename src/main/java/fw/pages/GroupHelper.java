@@ -1,7 +1,10 @@
-package fw;
+package fw.pages;
 
+import fw.ApplicationManager;
+import fw.HelperBase;
 import org.openqa.selenium.By;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -28,17 +31,6 @@ public class GroupHelper extends HelperBase {
 		returnToGroupsPage();
 		return this;
 	}
-
-	private GroupHelper submitGroupRemoval() {
-		click(By.name("delete"));
-		return this;
-	}
-
-	public GroupHelper submitGroupCreation() {
-		click(By.name("submit"));
-		return this;
-	}
-
 	public GroupHelper modifyGroup(int index, GroupData group) {
 		initGroupModification(index);
 		// create group object
@@ -51,21 +43,40 @@ public class GroupHelper extends HelperBase {
 		return this;
 	}
 
+    private List<GroupData> cachedGroups = new ArrayList<GroupData>();;
+
 	public List<GroupData> getGroups() {
-		manager.navigateTo().groupsPage();
-		List<GroupData> groups = new ArrayList<GroupData>();
-		//find all checkbox elements
-		List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-		for (WebElement checkbox : checkboxes) {
-			String title = checkbox.getAttribute("title");
-			String name = title.substring("Select (".length(),title.length() - ")".length());
-			groups.add(new GroupData().withName(name));
-		}
-		return groups;
+        if (cachedGroups == null) {
+            rebuildCache();
+        }
+        return cachedGroups;
+    }
+
+    private void rebuildCache() {
+        List<GroupData> cachedGroups = new ArrayList<GroupData>();
+        //find all checkbox elements
+        manager.navigateTo().groupsPage();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkbox : checkboxes) {
+            String title = checkbox.getAttribute("title");
+            String name = title.substring("Select (".length(),title.length() - ")".length());
+            cachedGroups.add(new GroupData().withName(name));
+        }
 	}
-	/*
-	 *
+
+	/**
+	 * -----------------------------------------------------------------------------------------------------------------
 	 */
+	private GroupHelper submitGroupRemoval() {
+		click(By.name("delete"));
+		return this;
+	}
+
+	public GroupHelper submitGroupCreation() {
+		click(By.name("submit"));
+		return this;
+	}
+
 	public GroupHelper initGroupCreation() {
 		manager.navigateTo().groupsPage();
 		click(By.name("new"));
@@ -95,4 +106,13 @@ public class GroupHelper extends HelperBase {
 		click(By.name("update"));
 		return this;
 	}
+
+	private boolean onGroupsPage(){
+	    String currentUrl = driver.getCurrentUrl();
+        if(currentUrl.contains("/group.php") &&  driver.findElements(By.name("new")).size() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

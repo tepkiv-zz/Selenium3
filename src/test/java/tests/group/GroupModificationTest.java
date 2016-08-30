@@ -1,9 +1,8 @@
 package tests.group;
 
-import fw.GroupData;
-import fw.GroupHelper;
+import fw.pages.GroupData;
+import fw.pages.GroupHelper;
 import fw.TestBase;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.*;
@@ -15,7 +14,6 @@ public class GroupModificationTest extends TestBase {
 
     @Test(dataProvider = "randomValidGroupGenerator")
     public void deleteGroup(GroupData group) {
-        app.navigateTo().mainPage();
 
         List<GroupData> oldList = groupHelper.getGroups();
 

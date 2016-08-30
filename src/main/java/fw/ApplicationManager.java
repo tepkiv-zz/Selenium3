@@ -4,11 +4,12 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 
-
+import fw.pages.ContactHelper;
+import fw.pages.GroupHelper;
+import fw.pages.NavigationHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class ApplicationManager {
@@ -35,6 +36,7 @@ public class ApplicationManager {
 		//navigationHelper = new NavigationHelper(this);
 		//groupHelper = new GroupHelper(this);
 		//contactHelper = new ContactHelper(this);
+        driver.get(baseUrl + "/addressbookv4.1.4/");
 	}
 	
 	public void stop() {
