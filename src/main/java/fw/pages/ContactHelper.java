@@ -2,6 +2,7 @@ package fw.pages;
 
 import fw.ApplicationManager;
 import fw.HelperBase;
+import fw.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,17 +27,19 @@ public class ContactHelper extends HelperBase {
     public ContactHelper modifyContact(int index, ContactData contact) {
         openContactDetails(index).fillContactForm(contact,ContactHelper.CREATION).submitContactUpdateOrCreation();
         openMainPage();
+        rebuildCache();
         return this;
     }
     public ContactHelper createContact(ContactData contact) {
         openContactPage().fillContactForm(contact, CREATION).submitContactUpdateOrCreation();
         openMainPage();
+        rebuildCache();
         return this;
     }
 
-    private List<ContactData> cachedContacts  = new ArrayList<ContactData>();
+    private ModifiedSortedList<ContactData> cachedContacts  = new ModifiedSortedList<ContactData>();
 
-    public List<ContactData> getContacts() {
+    public ModifiedSortedList<ContactData> getContacts() {
         if (cachedContacts == null) {
             rebuildCache();
         }
@@ -76,12 +79,6 @@ public class ContactHelper extends HelperBase {
     public ContactHelper openMainPage() {
         // open main page
         driver.get(manager.baseUrl + "/addressbookv4.1.4/");
-        return this;
-    }
-
-    public ContactHelper submitContactUpdateOrCreation() {
-        String customXpath = "//input[@name='submit' or @name='update']";
-        driver.findElement(By.xpath(customXpath)).click();
         return this;
     }
 
@@ -150,10 +147,15 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper submitDeleteContact() {
         click(By.xpath("//input[@type='submit'][@value='Delete']"));
+        cachedContacts = null;
         return this;
     }
 
-
-
+    public ContactHelper submitContactUpdateOrCreation() {
+        String customXpath = "//input[@name='submit' or @name='update']";
+        driver.findElement(By.xpath(customXpath)).click();
+        cachedContacts = null;
+        return this;
+    }
 
 }

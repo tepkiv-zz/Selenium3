@@ -2,6 +2,8 @@ package fw.pages;
 
 import fw.ApplicationManager;
 import fw.HelperBase;
+import fw.utils.ModifiedList;
+import fw.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,7 @@ public class GroupHelper extends HelperBase {
 		initGroupCreation();
 		fillGroupForm(group);
 		submitGroupCreation();
+		rebuildCache();
 		return this;
 	}
 
@@ -29,6 +32,7 @@ public class GroupHelper extends HelperBase {
 		selectGroupByIndex(index);
 		submitGroupRemoval();
 		returnToGroupsPage();
+		rebuildCache();
 		return this;
 	}
 	public GroupHelper modifyGroup(int index, GroupData group) {
@@ -40,12 +44,13 @@ public class GroupHelper extends HelperBase {
 		fillGroupForm(group);
 		submitGroupModification();
 		returnToGroupsPage();
+		rebuildCache();
 		return this;
 	}
 
-    private List<GroupData> cachedGroups = new ArrayList<GroupData>();;
+    private ModifiedSortedList<GroupData> cachedGroups = new ModifiedSortedList<GroupData>();
 
-	public List<GroupData> getGroups() {
+	public ModifiedSortedList<GroupData> getGroups() {
         if (cachedGroups == null) {
             rebuildCache();
         }
@@ -53,7 +58,7 @@ public class GroupHelper extends HelperBase {
     }
 
     private void rebuildCache() {
-        List<GroupData> cachedGroups = new ArrayList<GroupData>();
+        cachedGroups = new ModifiedSortedList<GroupData>();
         //find all checkbox elements
         manager.navigateTo().groupsPage();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
@@ -69,11 +74,13 @@ public class GroupHelper extends HelperBase {
 	 */
 	private GroupHelper submitGroupRemoval() {
 		click(By.name("delete"));
+		cachedGroups = null;
 		return this;
 	}
 
 	public GroupHelper submitGroupCreation() {
 		click(By.name("submit"));
+        cachedGroups = null;
 		return this;
 	}
 
@@ -104,6 +111,7 @@ public class GroupHelper extends HelperBase {
 
 	public GroupHelper submitGroupModification() {
 		click(By.name("update"));
+		cachedGroups = null;
 		return this;
 	}
 

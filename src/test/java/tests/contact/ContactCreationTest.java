@@ -2,11 +2,10 @@ package tests.contact;
 
 import fw.pages.ContactData;
 import fw.TestBase;
+import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 import fw.pages.ContactHelper;
-
 import java.util.*;
-
 import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTest extends TestBase {
@@ -16,7 +15,7 @@ public class ContactCreationTest extends TestBase {
         ContactHelper contactHelper = app.getContactHelper();
 
         // save old state
-        List<ContactData> oldList = contactHelper.getContacts();
+        ModifiedSortedList<ContactData> oldList = contactHelper.getContacts();
         System.out.println("old list " + oldList.size());
 
         // actions
@@ -25,7 +24,7 @@ public class ContactCreationTest extends TestBase {
         //save new state
         contactHelper.refreshPage();
         contactHelper.waitUntilContactListAppear();
-        List<ContactData> newList = contactHelper.getContacts();
+        ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
         System.out.println("newList list " + newList.size());
         // compare states
         //assertEquals(newList.size(), (oldList.size() + 1));
@@ -36,7 +35,6 @@ public class ContactCreationTest extends TestBase {
 
         System.out.println("old list " + oldList.size());
         Collections.sort(oldList);
-        Collections.sort(newList);
         assertEquals(newList, oldList);//Actual Expected
     }
 

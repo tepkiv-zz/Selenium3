@@ -1,26 +1,26 @@
 package tests.group;
 
 import static org.testng.Assert.assertEquals;
-
 import fw.pages.GroupData;
 import fw.pages.GroupHelper;
 import fw.TestBase;
+import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
-
 import java.util.*;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
 public class GroupCreationTest extends TestBase {
 
-    GroupHelper groupHelper = app.getGroupHelper();
-
     @Test(dataProvider = "randomValidGroupGenerator")
     public void testValidGroupCreation(GroupData group) throws Exception {
-
-        List<GroupData> oldList = groupHelper.getGroups();
-
+        GroupHelper groupHelper = app.getGroupHelper();
+        // save old state
+        ModifiedSortedList<GroupData> oldList = groupHelper.getGroups();
+        // actions
         groupHelper.createGroup(group);
-
-        List<GroupData> newList = groupHelper.getGroups();
+        // save new state
+        ModifiedSortedList<GroupData> newList = groupHelper.getGroups();
         //assertEquals(newList.size(), oldList.size() + 1);
         oldList.add(group);
         Collections.sort(oldList);
