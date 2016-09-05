@@ -4,6 +4,7 @@ import fw.ApplicationManager;
 import fw.HelperBase;
 import fw.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -33,14 +34,13 @@ public class ContactHelper extends HelperBase {
     public ContactHelper createContact(ContactData contact) {
         openContactPage().fillContactForm(contact, CREATION).submitContactUpdateOrCreation();
         openMainPage();
-        rebuildCache();
         return this;
     }
 
     private ModifiedSortedList<ContactData> cachedContacts  = new ModifiedSortedList<ContactData>();
 
     public ModifiedSortedList<ContactData> getContacts() {
-        if (cachedContacts == null) {
+        if (cachedContacts == null || cachedContacts.size() == 0) {
             rebuildCache();
         }
         return cachedContacts;
@@ -128,7 +128,7 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper openContactDetails(int index) {
         waitUntilContactListAppear();
-        List<WebElement> editLinks = driver.findElements(By.xpath("//a[contains(@href,'edit.php')]"));
+        List<WebElement> editLinks = driver.findElements(By.xpath("//a[contains(@href,'edit.php?id')]"));
         editLinks.get(index).click();
         // click(By.xpath("//a[@href='edit.php?id=" + index + "']"));
         return this;
@@ -146,15 +146,21 @@ public class ContactHelper extends HelperBase {
     }
 
     public ContactHelper submitDeleteContact() {
-        click(By.xpath("//input[@type='submit'][@value='Delete']"));
-        cachedContacts = null;
+        driver.findElement(By.name("phone2")).sendKeys("");
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,250)", "");
+        String deleteButton = "//input[@type='submit'or @value='Delete']";
+        click(By.xpath(deleteButton));
+        refreshPage();
+        click(By.linkText("home page"));
+        cachedContacts.clear();
         return this;
     }
 
     public ContactHelper submitContactUpdateOrCreation() {
         String customXpath = "//input[@name='submit' or @name='update']";
         driver.findElement(By.xpath(customXpath)).click();
-        cachedContacts = null;
+        click(By.linkText("add next"));
         return this;
     }
 

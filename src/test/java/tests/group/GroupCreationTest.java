@@ -22,8 +22,8 @@ public class GroupCreationTest extends TestBase {
         // save new state
         ModifiedSortedList<GroupData> newList = groupHelper.getGroups();
         //assertEquals(newList.size(), oldList.size() + 1);
-        oldList.add(group);
         Collections.sort(oldList);
-        assertEquals(newList, oldList);
+        //assertEquals(newList, oldList);
+        assertThat(newList,equalTo(oldList.withAdded(group)));
     }
 }

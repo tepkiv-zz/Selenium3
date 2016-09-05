@@ -6,12 +6,16 @@ import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 import fw.pages.ContactHelper;
 import java.util.*;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTest extends TestBase {
 
     @Test(dataProvider = "randomValidContactGenerator")
     public void TestContactCreation(ContactData contact) throws Exception {
+        String generatedFirstname = generateRandomString();
         ContactHelper contactHelper = app.getContactHelper();
 
         // save old state
@@ -19,10 +23,9 @@ public class ContactCreationTest extends TestBase {
         System.out.println("old list " + oldList.size());
 
         // actions
-        contactHelper.createContact(contact);
+        contactHelper.createContact(contact.withFirstName(generatedFirstname));
 
         //save new state
-        contactHelper.refreshPage();
         contactHelper.waitUntilContactListAppear();
         ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
         System.out.println("newList list " + newList.size());
@@ -30,12 +33,12 @@ public class ContactCreationTest extends TestBase {
         //assertEquals(newList.size(), (oldList.size() + 1));
 
         // compare items in the lists
-        contact.withFirstName(" ");
-        oldList.add(contact);
+        //oldList.add(contact.withFirstName(generatedFirstname));
 
         System.out.println("old list " + oldList.size());
-        Collections.sort(oldList);
-        assertEquals(newList, oldList);//Actual Expected
+        //assertEquals(newList, oldList,"Should be equals");//Actual Expected
+
+        assertThat(newList,equalTo(oldList.withAdded(contact.withFirstName(generatedFirstname))));
     }
 
 }

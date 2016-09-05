@@ -7,6 +7,9 @@ import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 import java.util.Collections;
 import java.util.Random;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactRemovalTest extends TestBase {
@@ -14,26 +17,24 @@ public class ContactRemovalTest extends TestBase {
     @Test
     public void testContactRemoval(){
         ContactHelper contactHelper = app.getContactHelper();
+        // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getContacts();
         System.out.println("old list " + oldList.size());
-
+        // actions
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
 
         contactHelper.deleteContact(index);
 
-        app.navigateTo().mainPage();
+        app.navigateTo().groupsPage();
         app.driver.navigate().refresh();
         contactHelper.waitUntilPageLoads();
-
+        // save new state
         ModifiedSortedList <ContactData> newList = contactHelper.getContacts();
         System.out.println("newList list " + newList.size());
 
-        oldList.remove(index);
-        System.out.println("old list " + oldList.size());
-
         Collections.sort(oldList);
-        assertEquals(newList, oldList);//Actual Expected
+        assertThat(newList,equalTo(oldList.without(index)));
     }
 
 }

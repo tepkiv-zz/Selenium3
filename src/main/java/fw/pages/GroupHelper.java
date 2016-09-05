@@ -48,7 +48,7 @@ public class GroupHelper extends HelperBase {
 		return this;
 	}
 
-    private ModifiedSortedList<GroupData> cachedGroups = new ModifiedSortedList<GroupData>();
+    private ModifiedSortedList<GroupData> cachedGroups;
 
 	public ModifiedSortedList<GroupData> getGroups() {
         if (cachedGroups == null) {
@@ -59,7 +59,7 @@ public class GroupHelper extends HelperBase {
 
     private void rebuildCache() {
         cachedGroups = new ModifiedSortedList<GroupData>();
-        //find all checkbox elements
+
         manager.navigateTo().groupsPage();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes) {
