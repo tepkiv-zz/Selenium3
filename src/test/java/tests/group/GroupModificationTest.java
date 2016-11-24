@@ -29,7 +29,7 @@ public class GroupModificationTest extends TestBase {
         // compare items in the lists
         oldList.remove(index);
         oldList.add(group);
-        Collections.sort(oldList);
+        //Collections.sort(oldList);
         //assertEquals(newList,oldList);
         assertThat(newList,equalTo(oldList.without(index)));
     }

@@ -33,7 +33,7 @@ public class ContactRemovalTest extends TestBase {
         ModifiedSortedList <ContactData> newList = contactHelper.getContacts();
         System.out.println("newList list " + newList.size());
 
-        Collections.sort(oldList);
+        //Collections.sort(oldList);
         assertThat(newList,equalTo(oldList.without(index)));
     }
 

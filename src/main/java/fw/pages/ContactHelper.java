@@ -19,26 +19,34 @@ public class ContactHelper extends HelperBase {
 
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
+    private ModifiedSortedList<ContactData> cachedContacts = new ModifiedSortedList<ContactData>();
 
-    public void deleteContact(int index) {
-        openContactDetails(index).submitContactRemoval();
-    }
-
-    public ContactHelper modifyContact(int index, ContactData contact) {
-        openContactDetails(index).fillContactForm(contact,ContactHelper.CREATION).submitContactUpdateOrCreation();
-        openMainPage();
-        rebuildCache();
-        return this;
+    public ContactHelper(ApplicationManager manager) {
+        super(manager);
+        // TODO Auto-generated constructor stub
     }
 
     public ContactHelper createContact(ContactData contact) {
         openContactPage().fillContactForm(contact, CREATION).submitContactUpdateOrCreation();
         openMainPage();
-        cachedContacts.clear();
+        rebuildCache();
         return this;
     }
 
-    private ModifiedSortedList<ContactData> cachedContacts  = new ModifiedSortedList<ContactData>();
+    public ContactHelper deleteContact(int index) {
+        openContactDetails(index).submitContactRemoval();
+        rebuildCache();
+        return this;
+    }
+
+    public ContactHelper modifyContact(int index, ContactData contact) {
+        openContactDetails(index).fillContactForm(contact, ContactHelper.CREATION).submitContactUpdateOrCreation();
+        openMainPage();
+        rebuildCache();
+        return this;
+    }
+
+
 
     public ModifiedSortedList<ContactData> getContacts() {
         if (cachedContacts == null || cachedContacts.isEmpty()) {
@@ -49,7 +57,6 @@ public class ContactHelper extends HelperBase {
 
     public void rebuildCache() {
         manager.navigateTo().mainPage();
-        //List<ContactData> cachedContacts = new ArrayList<ContactData>();
         //Find all checkboxes
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes) {
@@ -59,42 +66,26 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public ContactHelper(ApplicationManager manager) {
-        super(manager);
-        // TODO Auto-generated constructor stub
-    }
-
-    private boolean onСontactsPage(){
-        String currentUrl = driver.getCurrentUrl();
-        if(currentUrl.contains("/edit.php") &&
-                driver.findElement(By.xpath("//input[@value='Enter' and @type='submit' and @name='submit']")).isDisplayed()){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     /**
      * -----------------------------------------------------------------------------------------------------------------
      */
-    public ContactHelper openMainPage() {
-        // open main page
-        driver.get(manager.baseUrl + "/addressbookv4.1.4/");
+    public ContactHelper submitContactRemoval() {
+        driver.findElement(By.name("phone2")).sendKeys("");
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollBy(0,250)", "");
+        String deleteButton = "//input[@value='Delete']";
+        click(By.xpath(deleteButton));
+        refreshPage();
+        click(By.linkText("home page"));
+        cachedContacts.clear();
         return this;
     }
 
-    public ContactHelper selectFromDropDownList(String groupName) {
-        select(By.name("bday"), "4");
-        select(By.name("bmonth"), "April");
-
-        if (driver.findElements(By.name("new_group")).size() != 0) {
-            Select sel = new Select(driver.findElement(By.name("new_group")));
-            try {
-                sel.selectByValue(groupName);
-            } catch (Exception e) {
-                sel.selectByIndex(1);
-            }
-        }
+    public ContactHelper submitContactUpdateOrCreation() {
+        String customXpath = "//input[@name='submit' or @name='update']";
+        driver.findElement(By.xpath(customXpath)).click();
+        click(By.linkText("add next"));
+        cachedContacts.clear();
         return this;
     }
 
@@ -116,6 +107,27 @@ public class ContactHelper extends HelperBase {
         } else {
             if (driver.findElements(By.name("new_group")).size() != 0) {
                 throw new Error("Group selector exists in contact modification form");
+            }
+        }
+        return this;
+    }
+
+    public ContactHelper openMainPage() {
+        // open main page
+        driver.get(manager.baseUrl + "/addressbookv4.1.4/");
+        return this;
+    }
+
+    public ContactHelper selectFromDropDownList(String groupName) {
+        select(By.name("bday"), "4");
+        select(By.name("bmonth"), "April");
+
+        if (driver.findElements(By.name("new_group")).size() != 0) {
+            Select sel = new Select(driver.findElement(By.name("new_group")));
+            try {
+                sel.selectByValue(groupName);
+            } catch (Exception e) {
+                sel.selectByIndex(1);
             }
         }
         return this;
@@ -146,23 +158,13 @@ public class ContactHelper extends HelperBase {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("maintable")));
     }
 
-    public ContactHelper submitContactRemoval() {
-        driver.findElement(By.name("phone2")).sendKeys("");
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
-        jse.executeScript("window.scrollBy(0,250)", "");
-        String deleteButton = "//input[@type='submit'or @value='Delete']";
-        click(By.xpath(deleteButton));
-        refreshPage();
-        click(By.linkText("home page"));
-        cachedContacts.clear();
-        return this;
+    private boolean onСontactsPage() {
+        String currentUrl = driver.getCurrentUrl();
+        if (currentUrl.contains("/edit.php") &&
+                driver.findElement(By.xpath("//input[@value='Enter' and @type='submit' and @name='submit']")).isDisplayed()) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    public ContactHelper submitContactUpdateOrCreation() {
-        String customXpath = "//input[@name='submit' or @name='update']";
-        driver.findElement(By.xpath(customXpath)).click();
-        click(By.linkText("add next"));
-        return this;
-    }
-
 }

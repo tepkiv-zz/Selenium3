@@ -26,7 +26,7 @@ public class GroupRemovalTest extends TestBase {
         // save new state
         ModifiedSortedList <GroupData> newList = groupHelper.getGroups();
         // compare items in the lists
-        Collections.sort(oldList);
+        //Collections.sort(oldList);
         //assertEquals(newList, oldList);
         assertThat(newList,equalTo(oldList.without(index)));
     }
