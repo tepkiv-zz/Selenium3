@@ -10,6 +10,7 @@ import java.util.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class ContactCreationTest extends TestBase {
 
@@ -37,8 +38,9 @@ public class ContactCreationTest extends TestBase {
 
         System.out.println("old list " + oldList.size());
         //assertEquals(newList, oldList,"Should be equals");//Actual Expected
-
-        assertThat(newList,equalTo(oldList.withAdded(contact.withFirstName(generatedFirstname))));
+        oldList.add(contact.withFirstName(generatedFirstname));
+        //assertTrue(newList.equals(oldList));
+        assertThat(newList,equalTo(oldList));
     }
 
 }

@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +21,7 @@ public class ContactHelper extends HelperBase {
     public static boolean MODIFICATION = false;
 
     public void deleteContact(int index) {
-        openContactDetails(index).submitDeleteContact();
+        openContactDetails(index).submitContactRemoval();
     }
 
     public ContactHelper modifyContact(int index, ContactData contact) {
@@ -31,16 +30,18 @@ public class ContactHelper extends HelperBase {
         rebuildCache();
         return this;
     }
+
     public ContactHelper createContact(ContactData contact) {
         openContactPage().fillContactForm(contact, CREATION).submitContactUpdateOrCreation();
         openMainPage();
+        cachedContacts.clear();
         return this;
     }
 
     private ModifiedSortedList<ContactData> cachedContacts  = new ModifiedSortedList<ContactData>();
 
     public ModifiedSortedList<ContactData> getContacts() {
-        if (cachedContacts == null || cachedContacts.size() == 0) {
+        if (cachedContacts == null || cachedContacts.isEmpty()) {
             rebuildCache();
         }
         return cachedContacts;
@@ -145,7 +146,7 @@ public class ContactHelper extends HelperBase {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("maintable")));
     }
 
-    public ContactHelper submitDeleteContact() {
+    public ContactHelper submitContactRemoval() {
         driver.findElement(By.name("phone2")).sendKeys("");
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("window.scrollBy(0,250)", "");
