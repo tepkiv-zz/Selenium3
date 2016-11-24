@@ -12,7 +12,6 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class GroupModificationTest extends TestBase {
 
-
     @Test(dataProvider = "randomValidGroupGenerator")
     public void deleteGroup(GroupData group) {
         GroupHelper groupHelper = app.getGroupHelper();
