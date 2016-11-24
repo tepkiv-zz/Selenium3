@@ -11,6 +11,7 @@ import java.util.Random;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.testng.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
 public class ContactModificationTest extends TestBase {
 

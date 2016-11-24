@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.*;
 
 public class EmptyContactCreationTest extends TestBase {
     @Test

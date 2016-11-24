@@ -22,7 +22,7 @@ public class GroupCreationTest extends TestBase {
         // save new state
         ModifiedSortedList<GroupData> newList = groupHelper.getGroups();
         //assertEquals(newList.size(), oldList.size() + 1);
-        //Collections.sort(oldList);
+        //1Collections.sort(oldList);
         //assertEquals(newList, oldList);
         assertThat(newList,equalTo(oldList.withAdded(group)));
     }

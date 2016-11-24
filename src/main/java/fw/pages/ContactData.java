@@ -112,9 +112,11 @@ public class ContactData implements Comparable<ContactData> {
     public int compareTo(ContactData other) {
         return (firstName).toLowerCase().compareTo((other.firstName).toLowerCase());
     }
+
     /**
      * Header / Setter block
      */
+
     public String getFirstName() {
         return firstName;
     }

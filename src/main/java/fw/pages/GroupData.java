@@ -8,40 +8,41 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GroupData implements Comparable<GroupData>{
+public class GroupData implements Comparable<GroupData> {
     private TestBase testBase = new TestBase();
-	private String name;
-	private String header;
-	private String footer;
+    private String name;
+    private String header;
+    private String footer;
 
-	public GroupData(String groupname, String header, String footer) {
-		this.name = groupname;
-		this.header = header;
-		this.footer = footer;
-	}
-	public GroupData(){}
+    public GroupData(String groupname, String header, String footer) {
+        this.name = groupname;
+        this.header = header;
+        this.footer = footer;
+    }
 
-	@DataProvider
-	public Iterator<Object[]> randomValidGroupGenerator(){
-		List<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i < 5;i++){
-			GroupData group = new GroupData().withName(testBase.generateRandomString())
-					.withHeader(testBase.generateRandomString()).withFooter(testBase.generateRandomString());
-			list.add(new Object[]{group});
-		}
-		return list.iterator();
-	}
+    public GroupData() {
+    }
 
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder("GroupData{");
-		sb.append("name='").append(name).append('\'');
-		sb.append(", header='").append(header).append('\'');
-		sb.append(", footer='").append(footer).append('\'');
-		sb.append('}');
-		return sb.toString();
-	}
+    @DataProvider
+    public Iterator<Object[]> randomValidGroupGenerator() {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (int i = 0; i < 5; i++) {
+            GroupData group = new GroupData().withName(testBase.generateRandomString())
+                    .withHeader(testBase.generateRandomString()).withFooter(testBase.generateRandomString());
+            list.add(new Object[]{group});
+        }
+        return list.iterator();
+    }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("GroupData{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", header='").append(header).append('\'');
+        sb.append(", footer='").append(footer).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -60,44 +61,45 @@ public class GroupData implements Comparable<GroupData>{
     }
 
     public int compareTo(GroupData other) {
-		return this.name.toLowerCase().compareTo(other.name.toLowerCase());
-	}
+        return this.name.toLowerCase().compareTo(other.name.toLowerCase());
+    }
 
-	public GroupData withName(String name){
-		this.name = name;
-		return this;
-	}
+    public GroupData withName(String name) {
+        this.name = name;
+        return this;
+    }
 
-	public GroupData withHeader(String header){
-		this.header = header;
-		return this;
-	}
-	public GroupData withFooter(String footer){
-		this.footer = footer;
-		return this;
-	}
+    public GroupData withHeader(String header) {
+        this.header = header;
+        return this;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public GroupData withFooter(String footer) {
+        this.footer = footer;
+        return this;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getHeader() {
-		return header;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+    public String getHeader() {
+        return header;
+    }
 
-	public String getFooter() {
-		return footer;
-	}
+    public void setHeader(String header) {
+        this.header = header;
+    }
 
-	public void setFooter(String footer) {
-		this.footer = footer;
-	}
+    public String getFooter() {
+        return footer;
+    }
+
+    public void setFooter(String footer) {
+        this.footer = footer;
+    }
 }
