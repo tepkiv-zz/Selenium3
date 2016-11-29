@@ -1,12 +1,15 @@
 package tests.group;
 
 import static org.testng.Assert.assertEquals;
+
 import fw.pages.GroupData;
 import fw.pages.GroupHelper;
 import fw.TestBase;
 import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
+
 import java.util.*;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -24,6 +27,6 @@ public class GroupCreationTest extends TestBase {
         //assertEquals(newList.size(), oldList.size() + 1);
         //1Collections.sort(oldList);
         //assertEquals(newList, oldList);
-        assertThat(newList,equalTo(oldList.withAdded(group)));
+        assertThat(newList, equalTo(oldList.withAdded(group)));
     }
 }

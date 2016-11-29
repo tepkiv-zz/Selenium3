@@ -12,6 +12,7 @@ import static org.testng.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.*;
 
 public class EmptyContactCreationTest extends TestBase {
+
     @Test
     public void TestEmptyContactCreation() throws Exception {
         ContactHelper contactHelper = app.getContactHelper();
@@ -28,6 +29,6 @@ public class EmptyContactCreationTest extends TestBase {
         // save new state
         ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
         //assertEquals(newList, oldList);
-        assertThat(newList,equalTo(oldList));
+        assertThat(newList, equalTo(oldList));
     }
 }

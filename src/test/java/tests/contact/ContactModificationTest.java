@@ -5,6 +5,7 @@ import fw.pages.ContactHelper;
 import fw.TestBase;
 import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
+
 import java.util.Collections;
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public class ContactModificationTest extends TestBase {
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size() - 1);
 
-        contactHelper.modifyContact(index,contact);
+        contactHelper.modifyContact(index, contact);
         contactHelper.waitUntilPageLoads();
         // save new state
         ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
@@ -35,7 +36,7 @@ public class ContactModificationTest extends TestBase {
         oldList.remove(index);
         oldList.add(contact);
 
-        assertThat(newList,equalTo(oldList));
+        assertThat(newList, equalTo(oldList));
     }
 }
 

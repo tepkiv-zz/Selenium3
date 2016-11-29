@@ -8,72 +8,72 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public abstract class HelperBase {
-	
-	protected ApplicationManager manager;
-	protected WebDriver driver;
-	public  boolean acceptNextAlert = true;
-	
-	public HelperBase(ApplicationManager manager){
-		this.manager = manager;
-		this.driver = manager.driver;
-	}
-	
-	public String closeAlertAndGetItsText() {
-		try {
-			Alert alert = driver.switchTo().alert();
-			String alertText = alert.getText();
-			if (acceptNextAlert) {
-				alert.accept();
-			} else {
-				alert.dismiss();
-			}
-			return alertText;
-		} finally {
-			acceptNextAlert = true;
-		}
-	}
 
-	public boolean isElementPresent(By by) {
-		try {
-			driver.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
+    protected ApplicationManager manager;
+    protected WebDriver driver;
+    public boolean acceptNextAlert = true;
 
-	public boolean isAlertPresent() {
-		try {
-			driver.switchTo().alert();
-			return true;
-		} catch (NoAlertPresentException e) {
-			return false;
-		}
-	}
+    public HelperBase(ApplicationManager manager) {
+        this.manager = manager;
+        this.driver = manager.driver;
+    }
 
-	protected void type(By locator, String text) {
-		if (text!=null){
-			driver.findElement(locator).clear();
-			driver.findElement(locator).sendKeys(text);
-		}
+    public String closeAlertAndGetItsText() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            if (acceptNextAlert) {
+                alert.accept();
+            } else {
+                alert.dismiss();
+            }
+            return alertText;
+        } finally {
+            acceptNextAlert = true;
+        }
+    }
 
-	}
+    public boolean isElementPresent(By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 
-	protected void click(By locator) {
-		driver.findElement(locator).click();
-	}
+    public boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
 
-	protected void select(By locator, String text) {
+    protected void type(By locator, String text) {
+        if (text != null) {
+            driver.findElement(locator).clear();
+            driver.findElement(locator).sendKeys(text);
+        }
 
-		new Select(driver.findElement(locator)).selectByVisibleText(text);
-	}
+    }
 
-	protected void selectGroupByIndex(int index) {
-		click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
-	}
+    protected void click(By locator) {
+        driver.findElement(locator).click();
+    }
 
-	public void refreshPage() {
-		driver.navigate().refresh();
-	}
+    protected void select(By locator, String text) {
+
+        new Select(driver.findElement(locator)).selectByVisibleText(text);
+    }
+
+    protected void selectGroupByIndex(int index) {
+        click(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
+    }
+
+    public void refreshPage() {
+        driver.navigate().refresh();
+    }
 
 }

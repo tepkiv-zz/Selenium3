@@ -47,7 +47,6 @@ public class ContactHelper extends HelperBase {
     }
 
 
-
     public ModifiedSortedList<ContactData> getContacts() {
         if (cachedContacts == null || cachedContacts.isEmpty()) {
             rebuildCache();

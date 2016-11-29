@@ -5,6 +5,7 @@ import fw.TestBase;
 import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 import fw.pages.ContactHelper;
+
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -41,7 +42,7 @@ public class ContactCreationTest extends TestBase {
         //assertEquals(newList, oldList,"Should be equals");//Actual Expected
         //oldList.add(contact.withFirstName(generatedFirstname));
         //assertTrue(newList.equals(oldList));
-        assertThat(newList,equalTo(oldList.withAdded(contact.withFirstName(generatedFirstname))));
+        assertThat(newList, equalTo(oldList.withAdded(contact.withFirstName(generatedFirstname))));
     }
 
 }
