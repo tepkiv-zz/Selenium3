@@ -8,7 +8,6 @@ public class NavigationHelper extends HelperBase {
 
     public NavigationHelper(ApplicationManager manager) {
         super(manager);
-        // TODO Auto-generated constructor stub
     }
 
     public void groupsPage() {

@@ -23,7 +23,6 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper(ApplicationManager manager) {
         super(manager);
-        // TODO Auto-generated constructor stub
     }
 
     public ContactHelper createContact(ContactData contact) {

@@ -2,17 +2,15 @@ package tests.contact;
 
 import fw.pages.ContactData;
 import fw.pages.ContactHelper;
-import fw.TestBase;
+import tests.TestBase;
 import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.testng.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 public class ContactModificationTest extends TestBase {
 

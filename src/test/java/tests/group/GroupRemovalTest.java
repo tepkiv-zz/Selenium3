@@ -2,11 +2,10 @@ package tests.group;
 
 import fw.pages.GroupData;
 import fw.pages.GroupHelper;
-import fw.TestBase;
+import tests.TestBase;
 import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
 import java.util.Random;
 
 import static org.junit.Assert.assertThat;

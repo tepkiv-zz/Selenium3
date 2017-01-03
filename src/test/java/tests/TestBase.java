@@ -1,14 +1,19 @@
-package fw;
+package tests;
 
+
+import fw.ApplicationManager;
+import fw.pages.ContactData;
+import fw.pages.GroupData;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import fw.pages.ContactData;
-import fw.pages.GroupData;
-import org.testng.annotations.*;
+import static tests.group.GroupDataGenerator.generateRandomGroups;
 
 
 public class TestBase {
@@ -48,13 +53,15 @@ public class TestBase {
 
     @DataProvider
     public Iterator<Object[]> randomValidGroupGenerator() {
+        return wrapGroupsForDataProvider(generateRandomGroups(1)).iterator();
+    }
+
+    private List<Object[]> wrapGroupsForDataProvider(List<GroupData> listGroupData) {
         List<Object[]> list = new ArrayList<Object[]>();
-        for (int i = 0; i < 1; i++) {
-            GroupData group = new GroupData().withName(generateRandomString())
-                    .withHeader(generateRandomString()).withFooter(generateRandomString());
+        for (GroupData group : listGroupData) {
             list.add(new Object[]{group});
         }
-        return list.iterator();
+        return list;
     }
 
 }

@@ -1,17 +1,13 @@
 package tests.group;
 
-import static org.testng.Assert.assertEquals;
-
 import fw.pages.GroupData;
 import fw.pages.GroupHelper;
-import fw.TestBase;
 import fw.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
+import tests.TestBase;
 
-import java.util.*;
-
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 public class GroupCreationTest extends TestBase {
 
