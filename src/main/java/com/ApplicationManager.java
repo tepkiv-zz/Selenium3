@@ -1,15 +1,14 @@
 package com;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-
-import com.pages.ContactHelper;
-import com.pages.GroupHelper;
-import com.pages.NavigationHelper;
+import com.helpers.ContactHelper;
+import com.helpers.GroupHelper;
+import com.helpers.NavigationHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 
 public class ApplicationManager {

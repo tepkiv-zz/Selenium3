@@ -1,7 +1,5 @@
 package com.data;
 
-import com.data.ContactData;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +16,12 @@ public class ContactDataGenerator {
         int amount = Integer.parseInt(args[0]);
         File file = new File(args[1]);
         String format = args[2];
+
+        if(file.exists()){
+            System.out.printf("Please remove file manually : " + file);
+            return;
+        }
+
         List<ContactData> groups = generateRandomContacts(amount);
         if ("csv".equals(format)) {
             saveContactsToCsvFile(groups, file);
@@ -32,7 +36,7 @@ public class ContactDataGenerator {
     /* Contact */
     public static List<ContactData> generateRandomContacts(int amount) {
         List<ContactData> list = new ArrayList<ContactData>();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < amount; i++) {
             ContactData contact = new ContactData()
                     .withFirstName(generateRandomString()).withLastName("").withAddress1("").withHome("").withMobilePhoneNumber("").withWorkPhoneNumber("")
                     .withEmail1("").withEmail2("").withBirthDayYear("").withSecondaryAddress("").withSecondaryPhoneNumber("");
@@ -58,4 +62,7 @@ public class ContactDataGenerator {
     private static void saveContactToXmlFile(List<ContactData> groups, File file) {
     }
 
+    public static List<ContactData> loadContactsFromCsvFile(File file) {
+        return ;
+    }
 }

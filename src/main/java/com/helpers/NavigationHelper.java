@@ -1,4 +1,4 @@
-package com.pages;
+package com.helpers;
 
 import com.ApplicationManager;
 import com.HelperBase;
