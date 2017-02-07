@@ -1,12 +1,12 @@
-package fw;
+package com;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 
-import fw.pages.ContactHelper;
-import fw.pages.GroupHelper;
-import fw.pages.NavigationHelper;
+import com.pages.ContactHelper;
+import com.pages.GroupHelper;
+import com.pages.NavigationHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -27,7 +27,7 @@ public class ApplicationManager {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 
-        File chromeDriver = new File("D:\\Programs\\repo\\test-excercises-new\\src\\test\\resources\\chromedriver.exe");
+        File chromeDriver = new File("D:\\Programs\\repo\\tests.test-excercises-new\\src\\tests.test\\resources\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
 		//driver = new FirefoxDriver();
         driver = new ChromeDriver(options);

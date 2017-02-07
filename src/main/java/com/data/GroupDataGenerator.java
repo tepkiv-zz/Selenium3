@@ -1,15 +1,17 @@
-package tests.group;
+package com.data;
 
-import fw.pages.GroupData;
+import com.data.GroupData;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GroupDataGenerator {
-    public void main(String[] args){
-        if(args.length<3){
+    public void main(String[] args) throws IOException {
+        if (args.length < 3) {
             System.out.println("ERROR! Some required parameters are absent : <testdata> <file> <format>");
             return;
         }
@@ -17,17 +19,17 @@ public class GroupDataGenerator {
         File file = new File(args[1]);
         String format = args[2];
         List<GroupData> groups = generateRandomGroups(amount);
-        if("csv".equals(format)){
-            saveGroupsToCsvFile(groups,file);
-        }else if("xml".equals(format)){
-            saveGroupsToXmlFile(groups,file);
-        }
-        else{
+        if ("csv".equals(format)) {
+            saveGroupsToCsvFile(groups, file);
+        } else if ("xml".equals(format)) {
+            saveGroupsToXmlFile(groups, file);
+        } else {
             System.out.println("Unknown format " + format);
             return;
         }
     }
 
+    /* Group */
     public static List<GroupData> generateRandomGroups(int amount) {
         List<GroupData> list = new ArrayList<GroupData>();
         for (int i = 0; i < 1; i++) {
@@ -43,13 +45,22 @@ public class GroupDataGenerator {
         if (rnd.nextInt(3) == 0) {
             return "";
         } else {
-            return "test" + rnd.nextInt();
+            return "tests.test" + rnd.nextInt();
         }
     }
 
-    private static void saveGroupsToXmlFile(List<GroupData> groups, File file) {
+    private static void saveGroupsToCsvFile(List<GroupData> groups, File file) throws IOException {
+        FileWriter write = new FileWriter(file);
+
+        for(GroupData group : groups){
+            write.write(group.getName() +","+group.getHeader()+","+group.getFooter()+"\n");
+        }
+        write.close();
     }
 
-    private static void saveGroupsToCsvFile(List<GroupData> groups, File file) {
+    private static void saveGroupsToXmlFile(List<GroupData> groups, File file) throws IOException {
+
     }
+
+
 }

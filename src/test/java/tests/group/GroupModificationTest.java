@@ -1,9 +1,9 @@
 package tests.group;
 
-import fw.pages.GroupData;
-import fw.pages.GroupHelper;
-import tests.TestBase;
-import fw.utils.ModifiedSortedList;
+import com.data.GroupData;
+import com.pages.GroupHelper;
+import com.TestBase;
+import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
 import java.util.*;

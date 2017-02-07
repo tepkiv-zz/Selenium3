@@ -1,8 +1,9 @@
-package fw.pages;
+package com.pages;
 
-import fw.ApplicationManager;
-import fw.HelperBase;
-import fw.utils.ModifiedSortedList;
+import com.ApplicationManager;
+import com.HelperBase;
+import com.data.ContactData;
+import com.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;

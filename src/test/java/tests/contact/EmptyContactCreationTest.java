@@ -1,9 +1,9 @@
 package tests.contact;
 
-import fw.pages.ContactData;
-import fw.pages.ContactHelper;
-import tests.TestBase;
-import fw.utils.ModifiedSortedList;
+import com.data.ContactData;
+import com.pages.ContactHelper;
+import com.TestBase;
+import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;

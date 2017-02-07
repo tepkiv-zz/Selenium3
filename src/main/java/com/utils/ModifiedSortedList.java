@@ -1,4 +1,4 @@
-package fw.utils;
+package com.utils;
 
 import java.util.Collection;
 import java.util.Collections;

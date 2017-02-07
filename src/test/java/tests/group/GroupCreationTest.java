@@ -1,10 +1,10 @@
 package tests.group;
 
-import fw.pages.GroupData;
-import fw.pages.GroupHelper;
-import fw.utils.ModifiedSortedList;
+import com.data.GroupData;
+import com.pages.GroupHelper;
+import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
-import tests.TestBase;
+import com.TestBase;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;

@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <suiteFile>/src/test/resources/default.xml</suiteFile>
+        <suiteFile>/src/tests.test/resources/default.xml</suiteFile>
     </properties>
 
     <build>

@@ -1,15 +1,17 @@
+package tests;
+
 import org.junit.Test;
 
 public class test {
     @Override
     public String toString() {
-        return "test{}";
+        return "tests.test{}";
     }
 
     @Test
     public void test() {
-        String b = "test  test test";
-        String a = "test";
+        String b = "tests.test  tests.test tests.test";
+        String a = "tests.test";
 
         String[] array = b.split("\\s+");
         System.out.println(array.length);

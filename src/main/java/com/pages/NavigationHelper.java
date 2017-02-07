@@ -1,7 +1,7 @@
-package fw.pages;
+package com.pages;
 
-import fw.ApplicationManager;
-import fw.HelperBase;
+import com.ApplicationManager;
+import com.HelperBase;
 import org.openqa.selenium.By;
 
 public class NavigationHelper extends HelperBase {

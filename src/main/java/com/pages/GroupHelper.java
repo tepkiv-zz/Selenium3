@@ -1,15 +1,13 @@
-package fw.pages;
+package com.pages;
 
-import fw.ApplicationManager;
-import fw.HelperBase;
-import fw.utils.ModifiedList;
-import fw.utils.ModifiedSortedList;
+import com.ApplicationManager;
+import com.HelperBase;
+import com.data.GroupData;
+import com.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

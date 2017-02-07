@@ -1,10 +1,10 @@
 package tests.contact;
 
-import fw.pages.ContactData;
-import tests.TestBase;
-import fw.utils.ModifiedSortedList;
+import com.data.ContactData;
+import com.TestBase;
+import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
-import fw.pages.ContactHelper;
+import com.pages.ContactHelper;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;

@@ -1,7 +1,7 @@
-package fw.pages;
+package com.data;
 
 
-import fw.TestBase;
+import com.TestBase;
 import org.testng.annotations.DataProvider;
 
 import java.util.ArrayList;

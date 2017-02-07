@@ -1,4 +1,4 @@
-package fw.pages;
+package com.data;
 
 public class ContactData implements Comparable<ContactData> {
     private String firstName;
