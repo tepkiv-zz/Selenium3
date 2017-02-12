@@ -52,7 +52,7 @@ public class ContactCreationTest extends TestBase {
     }
 
     @Test(dataProvider = "groupsFromFile")
-    public void TestContactCreation(ContactData contact) throws Exception {
+    public void TestContactCreationFromFile(ContactData contact) throws Exception {
         String generatedFirstname = generateRandomString();
         ContactHelper contactHelper = app.getContactHelper();
 

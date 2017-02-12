@@ -1,8 +1,6 @@
 package com.data;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,7 +60,10 @@ public class ContactDataGenerator {
     private static void saveContactToXmlFile(List<ContactData> groups, File file) {
     }
 
-    public static List<ContactData> loadContactsFromCsvFile(File file) {
-        return ;
+    public static List<ContactData> loadContactsFromCsvFile(File file) throws FileNotFoundException {
+        List<ContactData> list = new ArrayList<ContactData>();
+        FileReader reader = new FileReader(file);
+
+        return list;
     }
 }
