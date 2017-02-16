@@ -7,10 +7,10 @@ import com.utils.ModifiedSortedList;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import static com.data.ContactDataGenerator.loadContactsFromCsvFile;
-import static com.data.GroupDataGenerator.loadGroupsFromCsvFile;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -47,11 +47,11 @@ public class ContactCreationTest extends TestBase {
 
 
     @DataProvider
-    public Iterator<Object[]> groupsFromFile() {
-        return wrapGroupsForDataProvider(loadContactsFromCsvFile("contacts.txt")).iterator();
+    public Iterator<Object[]> contactsFromFile() throws IOException {
+        return wrapContactsForDataProvider(loadContactsFromCsvFile("contacts.txt")).iterator();
     }
 
-    @Test(dataProvider = "groupsFromFile")
+    @Test(dataProvider = "contactsFromFile")
     public void TestContactCreationFromFile(ContactData contact) throws Exception {
         String generatedFirstname = generateRandomString();
         ContactHelper contactHelper = app.getContactHelper();

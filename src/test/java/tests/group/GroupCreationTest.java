@@ -7,6 +7,7 @@ import com.utils.ModifiedSortedList;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import static com.data.GroupDataGenerator.loadGroupsFromCsvFile;
@@ -31,7 +32,7 @@ public class GroupCreationTest extends TestBase {
     }
 
     @DataProvider
-    public Iterator<Object[]> groupsFromFile() {
+    public Iterator<Object[]> groupsFromFile() throws IOException {
         return wrapGroupsForDataProvider(loadGroupsFromCsvFile("groups.txt")).iterator();
     }
 

@@ -60,10 +60,12 @@ public class ContactDataGenerator {
     private static void saveContactToXmlFile(List<ContactData> groups, File file) {
     }
 
-    public static List<ContactData> loadContactsFromCsvFile(File file) throws FileNotFoundException {
+    public static List<ContactData> loadContactsFromCsvFile(String file) throws IOException {
         List<ContactData> list = new ArrayList<ContactData>();
         FileReader reader = new FileReader(file);
-
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        bufferedReader.readLine();
+        bufferedReader.close();
         return list;
     }
 }

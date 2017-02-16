@@ -63,10 +63,14 @@ public class GroupDataGenerator {
     private static void saveGroupsToXmlFile(List<GroupData> groups, File file) throws IOException {
 
     }
-    public static List<GroupData> loadGroupsFromCsvFile(File file) throws FileNotFoundException {
+    public static List<GroupData> loadGroupsFromCsvFile(String file) throws IOException {
         List<GroupData> list = new ArrayList<GroupData>();
         FileReader reader = new FileReader(file);
+        // wrap file reader to get extra methods
+       BufferedReader bufferedReader = new BufferedReader(reader);
+       bufferedReader.readLine();
 
+       bufferedReader.close();
         return list;
     }
 
