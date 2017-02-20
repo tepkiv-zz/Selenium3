@@ -36,7 +36,7 @@ public class ContactDataGenerator {
         List<ContactData> list = new ArrayList<ContactData>();
         for (int i = 0; i < amount; i++) {
             ContactData contact = new ContactData()
-                    .withFirstName(generateRandomString()).withLastName("").withAddress1("").withHome("").withMobilePhoneNumber("").withWorkPhoneNumber("")
+                    .withFirstName(generateRandomString()).withLastName(generateRandomString()).withAddress1("").withHome("").withMobilePhoneNumber("").withWorkPhoneNumber("")
                     .withEmail1("").withEmail2("").withBirthDayYear("").withSecondaryAddress("").withSecondaryPhoneNumber("");
             list.add(contact);
         }
@@ -52,8 +52,11 @@ public class ContactDataGenerator {
         }
     }
 
-    private static void saveContactsToCsvFile(List<ContactData> groups, File file) throws IOException {
+    private static void saveContactsToCsvFile(List<ContactData> contacts, File file) throws IOException {
         FileWriter write = new FileWriter(file);
+        for(ContactData contact : contacts){
+            write.write(contact.getFirstName() +","+contact.getLastName()+"\n");
+        }
         write.close();
     }
 
@@ -64,7 +67,14 @@ public class ContactDataGenerator {
         List<ContactData> list = new ArrayList<ContactData>();
         FileReader reader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(reader);
-        bufferedReader.readLine();
+        String line = bufferedReader.readLine();
+        while (line != null) {
+            String[] part = line.split(",");
+            ContactData contact = new ContactData().withFirstName(part[0]).withLastName(part[1]);
+            list.add(contact);
+            line = bufferedReader.readLine();
+        }
+
         bufferedReader.close();
         return list;
     }
