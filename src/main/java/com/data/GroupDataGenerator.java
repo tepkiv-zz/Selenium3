@@ -8,7 +8,7 @@ import java.util.Random;
 public class GroupDataGenerator {
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
-            System.out.println("ERROR! Some required parameters are absent : <testdata> <file> <format>");
+            System.out.println("ERROR! Some required parameters are absent : <count> <file> <format>");
             return;
         }
         int amount = Integer.parseInt(args[0]);
@@ -72,7 +72,10 @@ public class GroupDataGenerator {
         String line = bufferedReader.readLine();
         while (line != null) {
             String[] part = line.split(",");
-            GroupData group = new GroupData().withName(part[1]).withHeader(part[2]).withFooter(part[2]);
+            GroupData group = new GroupData()
+                    .withName(part[0])
+                    .withHeader(part[1])
+                    .withFooter(part[2]);
             list.add(group);
             line = bufferedReader.readLine();
         }

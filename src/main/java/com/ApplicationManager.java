@@ -26,7 +26,7 @@ public class ApplicationManager {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 
-        File chromeDriver = new File("D:\\Programs\\repo\\tests.test-excercises-new\\src\\tests.test\\resources\\chromedriver.exe");
+        File chromeDriver = new File("src\\test\\resources\\chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
 		//driver = new FirefoxDriver();
         driver = new ChromeDriver(options);

@@ -70,7 +70,9 @@ public class ContactDataGenerator {
         String line = bufferedReader.readLine();
         while (line != null) {
             String[] part = line.split(",");
-            ContactData contact = new ContactData().withFirstName(part[0]).withLastName(part[1]);
+            ContactData contact = new ContactData()
+                    .withFirstName(part[0])
+                    .withLastName(part[1]);
             list.add(contact);
             line = bufferedReader.readLine();
         }
