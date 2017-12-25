@@ -8,7 +8,7 @@ import java.util.Random;
 public class ContactDataGenerator {
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
-            System.out.println("ERROR! Some required parameters are absent : <testdata> <file> <format>");
+            System.out.println("ERROR! Some required parameters are absent : <rows count> <filename> <csv or xml>");
             return;
         }
         int amount = Integer.parseInt(args[0]);
@@ -36,8 +36,16 @@ public class ContactDataGenerator {
         List<ContactData> list = new ArrayList<ContactData>();
         for (int i = 0; i < amount; i++) {
             ContactData contact = new ContactData()
-                    .withFirstName(generateRandomString()).withLastName(generateRandomString()).withAddress1("").withHome("").withMobilePhoneNumber("").withWorkPhoneNumber("")
-                    .withEmail1("").withEmail2("").withBirthDayYear("").withSecondaryAddress("").withSecondaryPhoneNumber("");
+                    .withFirstName(generateRandomString())
+                    .withLastName(generateRandomString())
+                    .withAddress1("")
+                    .withHome("")
+                    .withMobilePhoneNumber("")
+                    .withWorkPhoneNumber("")
+                    .withEmail1("").withEmail2("")
+                    .withBirthDayYear("")
+                    .withSecondaryAddress("")
+                    .withSecondaryPhoneNumber("");
             list.add(contact);
         }
         return list;
@@ -53,11 +61,12 @@ public class ContactDataGenerator {
     }
 
     private static void saveContactsToCsvFile(List<ContactData> contacts, File file) throws IOException {
-        FileWriter write = new FileWriter(file);
+        FileWriter fileWriter = new FileWriter(file);
         for(ContactData contact : contacts){
-            write.write(contact.getFirstName() +","+contact.getLastName()+"\n");
+            fileWriter.write(String.format("%s,%s,!"+"\n",contact.getFirstName(),contact.getLastName()));
+            System.out.println(String.format("%s,%s,!"+"\n",contact.getFirstName(),contact.getLastName()));
         }
-        write.close();
+        fileWriter.close();
     }
 
     private static void saveContactToXmlFile(List<ContactData> groups, File file) {

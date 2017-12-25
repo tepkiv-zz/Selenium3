@@ -4,8 +4,11 @@ import com.helpers.ContactHelper;
 import com.helpers.GroupHelper;
 import com.helpers.NavigationHelper;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 
@@ -21,18 +24,18 @@ public class ApplicationManager {
 	
 	public ApplicationManager(){
 	    // Maximise window
-		//ChromeOptions options = new ChromeOptions();
-		//options.addArguments("--start-maximized");
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized");
 
-        //File chromeDriver = new File("src\\test\\resources\\chromedriver.exe");
-        //System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
-		//driver = new ChromeDriver(options);
+        File chromeDriver = new File("src\\test\\resources\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
+		driver = new ChromeDriver(options);
 
-        System.setProperty("webdriver.firefox.marionette", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
+        //System.setProperty("webdriver.firefox.marionette", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
         //System.setProperty("webdriver.gecko.driver", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
 
 
-        driver = new FirefoxDriver();
+       // driver = new FirefoxDriver();
 		baseUrl = "http://127.0.0.1";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		//navigationHelper = new NavigationHelper(this);

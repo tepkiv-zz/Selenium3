@@ -8,7 +8,7 @@ import java.util.Random;
 public class GroupDataGenerator {
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
-            System.out.println("ERROR! Some required parameters are absent : <count> <file> <format>");
+            System.out.println("ERROR! Some required parameters are absent : <rows count> <filename> <csv or xml>");
             return;
         }
         int amount = Integer.parseInt(args[0]);
@@ -35,8 +35,10 @@ public class GroupDataGenerator {
     public static List<GroupData> generateRandomGroups(int amount) {
         List<GroupData> list = new ArrayList<GroupData>();
         for (int i = 0; i < amount; i++) {
-            GroupData group = new GroupData().withName(generateRandomString())
-                    .withHeader(generateRandomString()).withFooter(generateRandomString());
+            GroupData group = new GroupData()
+                    .withName(generateRandomString())
+                    .withHeader(generateRandomString())
+                    .withFooter(generateRandomString());
             list.add(group);
         }
         return list;
@@ -52,12 +54,12 @@ public class GroupDataGenerator {
     }
 
     private static void saveGroupsToCsvFile(List<GroupData> groups, File file) throws IOException {
-        FileWriter write = new FileWriter(file);
-
+        FileWriter fileWriter = new FileWriter(file);
         for (GroupData group : groups) {
-            write.write(group.getName() + "," + group.getHeader() + "," + group.getFooter() + "\n");
+            fileWriter.write(String.format("%s,%s,%s,!"+"\n",group.getName(),group.getHeader(),group.getFooter()));
+            System.out.println(String.format("%s,%s,%s,!"+"\n",group.getName(),group.getHeader(),group.getFooter()));
         }
-        write.close();
+        fileWriter.close();
     }
 
     private static void saveGroupsToXmlFile(List<GroupData> groups, File file) throws IOException {

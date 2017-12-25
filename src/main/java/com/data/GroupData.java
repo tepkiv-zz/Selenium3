@@ -27,8 +27,8 @@ public class GroupData implements Comparable<GroupData> {
     public Iterator<Object[]> randomValidGroupGenerator() {
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i = 0; i < 5; i++) {
-            GroupData group = new GroupData().withName(testBase.generateRandomString())
-                    .withHeader(testBase.generateRandomString()).withFooter(testBase.generateRandomString());
+            GroupData group = new GroupData().withName(TestBase.generateRandomString())
+                    .withHeader(TestBase.generateRandomString()).withFooter(TestBase.generateRandomString());
             list.add(new Object[]{group});
         }
         return list.iterator();
