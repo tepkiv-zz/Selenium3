@@ -47,11 +47,11 @@ public class ContactCreationTest extends TestBase {
 
 
     @DataProvider
-    public Iterator<Object[]> contactsFromFile() throws IOException {
+    public Iterator<Object[]> contactsFromCSVFile() throws IOException {
         return wrapContactsForDataProvider(loadContactsFromCsvFile("contacts.txt")).iterator();
     }
 
-    @Test(dataProvider = "contactsFromFile")
+    @Test(dataProvider = "contactsFromCSVFile")
     public void TestContactCreationFromFile(ContactData contact) throws Exception {
         String generatedFirstname = generateRandomString();
         ContactHelper contactHelper = app.getContactHelper();

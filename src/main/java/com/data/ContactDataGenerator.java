@@ -1,11 +1,16 @@
 package com.data;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ContactDataGenerator {
+    private final static String aliasName = "contact";
+
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
             System.out.println("ERROR! Some required parameters are absent : <rows count> <filename> <csv or xml>");
@@ -15,7 +20,7 @@ public class ContactDataGenerator {
         File file = new File(args[1]);
         String format = args[2];
 
-        if(file.exists()){
+        if (file.exists()) {
             System.out.printf("Please remove file manually : " + file);
             return;
         }
@@ -60,16 +65,32 @@ public class ContactDataGenerator {
         }
     }
 
-    private static void saveContactsToCsvFile(List<ContactData> contacts, File file) throws IOException {
-        FileWriter fileWriter = new FileWriter(file);
-        for(ContactData contact : contacts){
-            fileWriter.write(String.format("%s,%s,!"+"\n",contact.getFirstName(),contact.getLastName()));
-            System.out.println(String.format("%s,%s,!"+"\n",contact.getFirstName(),contact.getLastName()));
-        }
-        fileWriter.close();
+    private static void saveContactToXmlFile(List<ContactData> contactData, File file) throws IOException {
+        XStream xStream = new XStream();
+        xStream.alias(aliasName,ContactData.class);
+        String xml = xStream.toXML(contactData);
+        FileWriter writer = new FileWriter(file);
+        writer.write(xml);
+        System.out.println("XML data saved to " + file.getAbsolutePath());
+        writer.close();
     }
 
-    private static void saveContactToXmlFile(List<ContactData> groups, File file) {
+    public static List<GroupData> loadGroupsFromXMLFile(File file) throws FileNotFoundException {
+        XStream xStream = new XStream(new DomDriver());
+        xStream.alias(aliasName,ContactData.class);
+        FileReader reader = new FileReader(file);
+        // parse xml
+        return (List<GroupData>) xStream.fromXML(reader);
+    }
+
+
+    private static void saveContactsToCsvFile(List<ContactData> contacts, File file) throws IOException {
+        FileWriter fileWriter = new FileWriter(file);
+        for (ContactData contact : contacts) {
+            fileWriter.write(String.format("%s,%s,!" + "\n", contact.getFirstName(), contact.getLastName()));
+            System.out.println(String.format("%s,%s,!" + "\n", contact.getFirstName(), contact.getLastName()));
+        }
+        fileWriter.close();
     }
 
     public static List<ContactData> loadContactsFromCsvFile(String file) throws IOException {
