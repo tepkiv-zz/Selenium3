@@ -9,39 +9,45 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.File;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 
 public class ApplicationManager {
+	public  String baseUrl;
+	public  WebDriver driver;
 
 	private NavigationHelper navigationHelper;
 	private GroupHelper groupHelper;
 	private ContactHelper contactHelper;
-	
-	public  String baseUrl;
+    private Properties properties;
 
-	public  WebDriver driver;
-	
-	public ApplicationManager(){
-	    // Maximise window
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
+	public ApplicationManager(Properties properties){
+	    this.properties = properties;
 
-        File chromeDriver = new File("src\\test\\resources\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
-		driver = new ChromeDriver(options);
+	    String browser = properties.getProperty("browser");
+	    if("firefox".equals(browser)){
+	        driver = new FirefoxDriver();
+            //System.setProperty("webdriver.firefox.marionette", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
+            //System.setProperty("webdriver.gecko.driver", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
+        }
+        else if("googlechrome".equals(browser)){
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--start-maximized");
 
-        //System.setProperty("webdriver.firefox.marionette", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
-        //System.setProperty("webdriver.gecko.driver", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
-
-
-       // driver = new FirefoxDriver();
-		baseUrl = "http://127.0.0.1";
+            File chromeDriver = new File("src\\test\\resources\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
+            driver = new ChromeDriver(options);
+        }
+        else{
+	        throw new Error("Unsupported Browser");
+        }
+		baseUrl = properties.getProperty("baseUrl");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		//navigationHelper = new NavigationHelper(this);
 		//groupHelper = new GroupHelper(this);
 		//contactHelper = new ContactHelper(this);
-        driver.get(baseUrl + "/addressbookv4.1.4/");
+        driver.get(baseUrl);
 	}
 	
 	public void stop() {
