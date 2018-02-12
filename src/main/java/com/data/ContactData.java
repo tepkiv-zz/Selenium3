@@ -12,6 +12,7 @@ public class ContactData implements Comparable<ContactData> {
     private String byear;
     private String secondaryaddress;
     private String secondaryhomephonenumber;
+    private String id;
 
     public ContactData(String firstName, String lastName, String address1,
                        String home, String mobilePhoneNumber, String workPhoneNumber,
@@ -113,6 +114,7 @@ public class ContactData implements Comparable<ContactData> {
         return (firstName).toLowerCase().compareTo((other.firstName).toLowerCase());
     }
 
+
     /**
      * Header / Setter block
      */
@@ -203,5 +205,13 @@ public class ContactData implements Comparable<ContactData> {
 
     public void setSecondaryhomephonenumber(String secondaryhomephonenumber) {
         this.secondaryhomephonenumber = secondaryhomephonenumber;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -1,7 +1,7 @@
 package tests.group;
 
 import com.data.GroupData;
-import com.helpers.GroupHelper;
+import com.helpers.product.GroupHelper;
 import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;

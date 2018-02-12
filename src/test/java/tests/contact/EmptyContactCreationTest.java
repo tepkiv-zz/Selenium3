@@ -1,7 +1,7 @@
 package tests.contact;
 
 import com.data.ContactData;
-import com.helpers.ContactHelper;
+import com.helpers.product.ContactHelper;
 import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;

@@ -1,6 +1,13 @@
 package tests;
 
-import org.junit.Test;
+import com.ApplicationManager;
+import com.helpers.db.JdbcHelper;
+import org.testng.annotations.Test;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
 public class test {
     @Override
@@ -32,5 +39,42 @@ public class test {
         a = a.replaceAll("[ ()\\-]", "");
         System.out.println(a);
         System.out.println(a.matches("\\+\\d+"));
+    }
+
+    @Test
+    public void jdbc(){
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(new File("application.properties")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ApplicationManager app = new ApplicationManager(properties);
+        JdbcHelper jdbc = new JdbcHelper(app,"jdbc:mysql://127.0.0.1/addressbook?user=root&password=");
+        System.out.println(jdbc.listGroups());
+    }
+
+    @Test
+    public void hiberGroups(){
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(new File("application.properties")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ApplicationManager app = new ApplicationManager(properties);
+        app.getHibernateHelper().getListOfGroups();
+    }
+
+    @Test
+    public void hiberContacts(){
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(new File("application.properties")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ApplicationManager app = new ApplicationManager(properties);
+        app.getHibernateHelper().getListOfContacts();
     }
 }

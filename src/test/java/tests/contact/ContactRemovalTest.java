@@ -1,7 +1,7 @@
 package tests.contact;
 
 import com.data.ContactData;
-import com.helpers.ContactHelper;
+import com.helpers.product.ContactHelper;
 import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
@@ -27,7 +27,7 @@ public class ContactRemovalTest extends TestBase {
         contactHelper.deleteContact(index);
 
         app.navigateTo().groupsPage();
-        app.driver.navigate().refresh();
+        app.getDriver().navigate().refresh();
         contactHelper.waitUntilPageLoads();
         // save new state
         ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
