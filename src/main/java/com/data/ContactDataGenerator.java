@@ -75,12 +75,12 @@ public class ContactDataGenerator {
         writer.close();
     }
 
-    public static List<GroupData> loadGroupsFromXMLFile(File file) throws FileNotFoundException {
+    public static List<ContactData> loadGroupsFromXMLFile(File file) throws FileNotFoundException {
         XStream xStream = new XStream(new DomDriver());
         xStream.alias(aliasName,ContactData.class);
         FileReader reader = new FileReader(file);
         // parse xml
-        return (List<GroupData>) xStream.fromXML(reader);
+        return (List<ContactData>) xStream.fromXML(reader);
     }
 
 

@@ -18,14 +18,14 @@ public class GroupModificationTest extends TestBase {
     public void deleteGroup(GroupData group) {
         GroupHelper groupHelper = app.getGroupHelper();
         // save old state
-        ModifiedSortedList<GroupData> oldList = groupHelper.getGroups();
+        ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
         System.out.println("old list " + oldList.size());
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size() - 1);
 
         groupHelper.modifyGroup(index, group);
         // save new state
-        ModifiedSortedList<GroupData> newList = groupHelper.getGroups();
+        ModifiedSortedList<GroupData> newList = groupHelper.getUiGroups();
         System.out.println("newList list " + newList.size());
         // compare items in the lists
         oldList.remove(index);

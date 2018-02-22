@@ -51,7 +51,8 @@ public class test {
         }
         ApplicationManager app = new ApplicationManager(properties);
         JdbcHelper jdbc = new JdbcHelper(app,"jdbc:mysql://127.0.0.1/addressbook?user=root&password=");
-        System.out.println(jdbc.listGroups());
+        //System.out.println(jdbc.listGroups());
+        System.out.println(jdbc.listContacts());
     }
 
     @Test

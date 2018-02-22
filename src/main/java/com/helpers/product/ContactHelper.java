@@ -29,12 +29,14 @@ public class ContactHelper extends WebDriverHelperBase {
     public ContactHelper createContact(ContactData contact) {
         openContactPage().fillContactForm(contact, CREATION).submitContactUpdateOrCreation();
         openMainPage();
+        manager.getAppModel().addContact(contact);
         rebuildCache();
         return this;
     }
 
     public ContactHelper deleteContact(int index) {
         openContactDetails(index).submitContactRemoval();
+        manager.getAppModel().removeContact(index);
         rebuildCache();
         return this;
     }
@@ -42,12 +44,12 @@ public class ContactHelper extends WebDriverHelperBase {
     public ContactHelper modifyContact(int index, ContactData contact) {
         openContactDetails(index).fillContactForm(contact, ContactHelper.CREATION).submitContactUpdateOrCreation();
         openMainPage();
+        manager.getAppModel().removeContact(index).addContact(contact);
         rebuildCache();
         return this;
     }
 
-
-    public ModifiedSortedList<ContactData> getContacts() {
+    public ModifiedSortedList<ContactData> getUiContacts() {
         if (cachedContacts == null || cachedContacts.isEmpty()) {
             rebuildCache();
         }
@@ -113,7 +115,7 @@ public class ContactHelper extends WebDriverHelperBase {
 
     public ContactHelper openMainPage() {
         // open main page
-        driver.get(manager.baseUrl + "/addressbookv4.1.4/");
+        driver.get(manager.baseUrl);
         return this;
     }
 

@@ -3,6 +3,7 @@ package com.helpers.db;
 import java.util.List;
 
 import com.ApplicationManager;
+import com.data.ContactData;
 import com.data.GroupData;
 import com.helpers.HelperBase;
 import com.utils.HibernateUtil;
@@ -16,7 +17,7 @@ public class HibernateHelper extends HelperBase {
 	  super(manager);
 	}
 
-	public List<GroupData> getListOfGroups() {
+	public List<GroupData>  getListOfGroups() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		try {
@@ -27,12 +28,12 @@ public class HibernateHelper extends HelperBase {
 		}
 	}
 
-	public List<GroupData> getListOfContacts() {
+	public List<ContactData> getListOfContacts() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction trans = session.beginTransaction();
 		try {
-          return new ModifiedSortedList<GroupData>(
-              (List<GroupData>) session.createQuery("from ContactData").list());
+          return new ModifiedSortedList<ContactData>(
+              (List<ContactData>) session.createQuery("from ContactData").list());
 		} finally {
           trans.commit();
 		}

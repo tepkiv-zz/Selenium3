@@ -18,7 +18,7 @@ public class ContactRemovalTest extends TestBase {
     public void testContactRemoval() {
         ContactHelper contactHelper = app.getContactHelper();
         // save old state
-        ModifiedSortedList<ContactData> oldList = contactHelper.getContacts();
+        ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
         System.out.println("old list " + oldList.size());
         // actions
         Random rnd = new Random();
@@ -30,7 +30,7 @@ public class ContactRemovalTest extends TestBase {
         app.getDriver().navigate().refresh();
         contactHelper.waitUntilPageLoads();
         // save new state
-        ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
+        ModifiedSortedList<ContactData> newList = contactHelper.getUiContacts();
         System.out.println("newList list " + newList.size());
 
         //Collections.sort(oldList);

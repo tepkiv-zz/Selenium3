@@ -1,15 +1,19 @@
 package com;
 
+import com.data.ContactData;
+import com.data.GroupData;
 import com.helpers.db.HibernateHelper;
 import com.helpers.product.ContactHelper;
 import com.helpers.product.GroupHelper;
 import com.helpers.product.NavigationHelper;
+import com.utils.ModifiedSortedList;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -23,10 +27,17 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
     private HibernateHelper hibernateHelper;
 
+    private AppModel appModel;
+
     private Properties properties;
+    private List<GroupData> groups;
+    private List<ContactData> contacts;
 
     public ApplicationManager(Properties properties) {
         this.properties = properties;
+        appModel = new AppModel();
+        appModel.setGroups(getHibernateHelper().getListOfGroups());
+      //  appModel.setContacts(getHibernateHelper().getListOfContacts());
     }
 
     public void stop() {
@@ -86,6 +97,22 @@ public class ApplicationManager {
             driver.get(baseUrl);
         }
         return driver;
+    }
+
+    public AppModel getAppModel() {
+        return appModel;
+    }
+
+    public void setGroups(List<GroupData> groups) {
+        this.groups = new ModifiedSortedList<GroupData>(groups);
+    }
+
+    public void setContacts(List<ContactData> contacts) {
+        this.contacts = new ModifiedSortedList<ContactData>(contacts);
+    }
+
+    public String getProperty(String key) {
+       return  properties.getProperty(key);
     }
 
 

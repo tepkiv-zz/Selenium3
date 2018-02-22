@@ -16,7 +16,7 @@ public class EmptyContactCreationTest extends TestBase {
     public void TestEmptyContactCreation() throws Exception {
         ContactHelper contactHelper = app.getContactHelper();
         // save old state
-        ModifiedSortedList<ContactData> oldList = contactHelper.getContacts();
+        ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
         // actions
         contactHelper.openContactPage();
         ContactData contact = new ContactData("", "", "", "", "", "", "", "", "", "", "");
@@ -26,7 +26,7 @@ public class EmptyContactCreationTest extends TestBase {
 
         contactHelper.waitUntilPageLoads();
         // save new state
-        ModifiedSortedList<ContactData> newList = contactHelper.getContacts();
+        ModifiedSortedList<ContactData> newList = contactHelper.getUiContacts();
         //assertEquals(newList, oldList);
         assertThat(newList, equalTo(oldList));
     }

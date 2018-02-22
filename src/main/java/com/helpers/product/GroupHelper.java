@@ -24,6 +24,7 @@ public class GroupHelper extends WebDriverHelperBase {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
+        manager.getAppModel().addGroup(group);
         rebuildCache();
         return this;
     }
@@ -32,6 +33,7 @@ public class GroupHelper extends WebDriverHelperBase {
         selectGroupByIndex(index);
         submitGroupRemoval();
         returnToGroupsPage();
+        manager.getAppModel().removeGroup(index);
         rebuildCache();
         return this;
     }
@@ -45,11 +47,12 @@ public class GroupHelper extends WebDriverHelperBase {
         fillGroupForm(group);
         submitGroupModification();
         returnToGroupsPage();
+        manager.getAppModel().removeGroup(index).addGroup(group);
         rebuildCache();
         return this;
     }
 
-    public ModifiedSortedList<GroupData> getGroups() {
+    public ModifiedSortedList<GroupData> getUiGroups() {
         if (cachedGroups == null) {
             rebuildCache();
         }
@@ -73,14 +76,20 @@ public class GroupHelper extends WebDriverHelperBase {
      */
     private GroupHelper submitGroupRemoval() {
         click(By.name("delete"));
-        cachedGroups.clear();
+        clearCache();
         return this;
     }
 
     public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
-        cachedGroups.clear();
+        clearCache();
         return this;
+    }
+
+    private void clearCache() {
+       if(cachedGroups!=null){
+            cachedGroups.clear();
+        }
     }
 
     public GroupHelper initGroupCreation() {
@@ -111,7 +120,7 @@ public class GroupHelper extends WebDriverHelperBase {
 
     public GroupHelper submitGroupModification() {
         click(By.name("update"));
-        cachedGroups.clear();
+        clearCache();
         return this;
     }
 
@@ -123,4 +132,6 @@ public class GroupHelper extends WebDriverHelperBase {
             return false;
         }
     }
+
+
 }

@@ -211,7 +211,8 @@ public class ContactData implements Comparable<ContactData> {
         return id;
     }
 
-    public void setId(String id) {
+    public ContactData setId(String id) {
         this.id = id;
+        return this;
     }
 }
