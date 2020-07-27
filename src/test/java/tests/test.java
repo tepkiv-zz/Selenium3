@@ -2,6 +2,7 @@ package tests;
 
 import com.ApplicationManager;
 import com.helpers.db.JdbcHelper;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class test {
+public class test extends SetupFolders{
     @Override
     public String toString() {
         return "tests.test{}";
