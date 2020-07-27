@@ -159,7 +159,7 @@ public class ContactHelper extends WebDriverHelperBase {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("maintable")));
     }
 
-    private boolean onСontactsPage() {
+    private boolean onContactPage() {
         String currentUrl = driver.getCurrentUrl();
         if (currentUrl.contains("/edit.php") &&
                 driver.findElement(By.xpath("//input[@value='Enter' and @type='submit' and @name='submit']")).isDisplayed()) {

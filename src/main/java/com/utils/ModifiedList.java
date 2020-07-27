@@ -1,10 +1,10 @@
 package com.utils;
 
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.Random;
 
 public class ModifiedList<T> extends ForwardingList<T> {
 

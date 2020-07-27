@@ -3,7 +3,7 @@ package tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class Sample {
+public class DataProviderTest {
     public static void main(String[] args){
         String line = "";
         System.out.println(line.split(",").length);
