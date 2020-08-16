@@ -1,8 +1,8 @@
 package tests.contact;
 
+import com.BaseTest;
 import com.data.ContactData;
 import com.helpers.product.ContactHelper;
-import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
@@ -10,9 +10,8 @@ import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.testng.Assert.assertEquals;
 
-public class ContactRemovalTest extends TestBase {
+public class ContactRemovalTest extends BaseTest {
 
     @Test
     public void testContactRemoval() {
@@ -26,7 +25,7 @@ public class ContactRemovalTest extends TestBase {
 
         contactHelper.deleteContact(index);
 
-        app.navigateTo().groupsPage();
+        app.getNavigationHelper().groupsPage();
         app.getDriver().navigate().refresh();
         contactHelper.waitUntilPageLoads();
         // save new state

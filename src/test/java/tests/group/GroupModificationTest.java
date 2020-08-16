@@ -1,18 +1,17 @@
 package tests.group;
 
+import com.BaseTest;
 import com.data.GroupData;
 import com.helpers.product.GroupHelper;
-import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
-import java.util.*;
+import java.util.Random;
 
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
-public class GroupModificationTest extends TestBase {
+public class GroupModificationTest extends BaseTest {
 
     @Test(dataProvider = "randomValidGroupGenerator")
     public void deleteGroup(GroupData group) {

@@ -1,6 +1,6 @@
 package tests.group;
 
-import com.TestBase;
+import com.BaseTest;
 import com.data.GroupData;
 import com.helpers.product.GroupHelper;
 import com.utils.ModifiedSortedList;
@@ -16,16 +16,16 @@ import static com.data.GroupDataGenerator.loadGroupsFromXMLFile;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class GroupCreationTest extends TestBase {
+public class GroupCreationTest extends BaseTest {
 
     @Test(dataProvider = "randomValidGroupGenerator")
     public void testValidGroupCreation(GroupData group) throws Exception {
         GroupHelper groupHelper = app.getGroupHelper();
         // save old state
         ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
-       
+
         groupHelper.createGroup(group);
-       
+
         ModifiedSortedList<GroupData> newList = groupHelper.getUiGroups();
         //assertEquals(newList.size(), oldList.size() + 1);
         //1Collections.sort(oldList);

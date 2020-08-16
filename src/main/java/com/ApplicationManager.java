@@ -7,12 +7,18 @@ import com.helpers.product.ContactHelper;
 import com.helpers.product.GroupHelper;
 import com.helpers.product.NavigationHelper;
 import com.utils.ModifiedSortedList;
+import conf.TestProperties;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +26,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     public String baseUrl;
-    private WebDriver driver;
+    private static Properties properties;
+    private static WebDriver driver;
 
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
@@ -29,7 +36,6 @@ public class ApplicationManager {
 
     private AppModel appModel;
 
-    private Properties properties;
     private List<GroupData> groups;
     private List<ContactData> contacts;
 
@@ -37,18 +43,65 @@ public class ApplicationManager {
         this.properties = properties;
         appModel = new AppModel();
         appModel.setGroups(getHibernateHelper().getListOfGroups());
-      //  appModel.setContacts(getHibernateHelper().getListOfContacts());
+        //  appModel.setContacts(getHibernateHelper().getListOfContacts());
     }
 
     public void stop() {
         driver.quit();
     }
 
-    public NavigationHelper navigateTo() {
-        if (navigationHelper == null) {
-            navigationHelper = new NavigationHelper(this);
+    public static WebDriver getDriver() {
+        LocalDesiredCapabilities localDesiredCapabilities = new LocalDesiredCapabilities();
+        String browser = properties.getProperty("browser");
+        if (driver == null) {
+            switch (browser) {
+                case "ff":
+                case "firefox":
+                    System.setProperty(TestProperties.GECKO_DRIVER, properties.getProperty(TestProperties.GECKO_DRIVER_PATH));
+                    driver = new FirefoxDriver();
+                    driver.manage().window().maximize();
+                    //System.setProperty("webdriver.firefox.marionette", "");
+                    break;
+                case "chrome":
+                case "googlechrome":
+                    File chromeDriver = new File(properties.getProperty(TestProperties.CHROME_DRIVER_PATH));
+                    System.setProperty(TestProperties.CHROME_DRIVER, chromeDriver.getAbsolutePath());
+                    /*try {
+                        driver = new RemoteWebDriver(new URL("http://192.168.0.11:4444/wd/hub"), localDesiredCapabilities.chrome());
+                        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }*/
+                    driver = new ChromeDriver(localDesiredCapabilities.chrome());
+                    break;
+                case "mobileApp":
+                    DesiredCapabilities androidCapabilities = new DesiredCapabilities();
+                    androidCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Pixel2API29");
+                    androidCapabilities.setCapability(MobileCapabilityType.APP, new File("src/test/resources/ApiDemos-debug.apk"));
+                    try {
+                        AndroidDriver<AndroidElement> driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), androidCapabilities);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                //todo implement
+                case "ie":
+                case "explorer":
+                    break;
+                //todo implement
+                case "internetexplorer":
+                    break;
+                default:
+                    throw new Error("Unsupported Browser");
+            }
+
+            assert driver != null;
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.get(properties.getProperty(TestProperties.BASE_URL));
+            System.out.println(driver.getTitle());
+
         }
-        return navigationHelper;
+        return driver;
     }
 
     public GroupHelper getGroupHelper() {
@@ -72,31 +125,11 @@ public class ApplicationManager {
         return hibernateHelper;
     }
 
-    public WebDriver getDriver() {
-        String browser = properties.getProperty("browser");
-        if (driver == null) {
-            if ("firefox".equals(browser)) {
-                driver = new FirefoxDriver();
-                //System.setProperty("webdriver.firefox.marionette", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
-                //System.setProperty("webdriver.gecko.driver", "C:\\repo\\exercises\\test_excercises_new\\src\\test\\resources\\geckodriver.exe");
-            } else if ("googlechrome".equals(browser)) {
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--start-maximized");
-
-                File chromeDriver = new File("src\\test\\resources\\chromedriver.exe");
-                System.setProperty("webdriver.chrome.driver", chromeDriver.getAbsolutePath());
-                driver = new ChromeDriver(options);
-            } else {
-                throw new Error("Unsupported Browser");
-            }
-            baseUrl = properties.getProperty("baseUrl");
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            //navigationHelper = new NavigationHelper(this);
-            //groupHelper = new GroupHelper(this);
-            //contactHelper = new ContactHelper(this);
-            driver.get(baseUrl);
+    public NavigationHelper getNavigationHelper() {
+        if (navigationHelper == null) {
+            navigationHelper = new NavigationHelper(this);
         }
-        return driver;
+        return navigationHelper;
     }
 
     public AppModel getAppModel() {

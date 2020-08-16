@@ -1,6 +1,6 @@
 package tests.contact;
 
-import com.TestBase;
+import com.BaseTest;
 import com.data.ContactData;
 import com.helpers.product.ContactHelper;
 import com.utils.ModifiedSortedList;
@@ -16,7 +16,7 @@ import static com.data.ContactDataGenerator.loadGroupsFromXMLFile;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class ContactCreationTest extends TestBase {
+public class ContactCreationTest extends BaseTest {
 
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactCreation(ContactData contact) throws Exception {

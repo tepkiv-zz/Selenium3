@@ -5,7 +5,6 @@ import com.data.GroupData;
 import com.helpers.WebDriverHelperBase;
 import com.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
-
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class GroupHelper extends WebDriverHelperBase {
     }
 
     public GroupHelper createGroup(GroupData group) {
-        manager.navigateTo().groupsPage();
+        manager.getNavigationHelper().groupsPage();
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
@@ -62,7 +61,7 @@ public class GroupHelper extends WebDriverHelperBase {
     private void rebuildCache() {
         cachedGroups = new ModifiedSortedList<GroupData>();
 
-        manager.navigateTo().groupsPage();
+        manager.getNavigationHelper().groupsPage();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes) {
             String title = checkbox.getAttribute("title");
@@ -93,7 +92,7 @@ public class GroupHelper extends WebDriverHelperBase {
     }
 
     public GroupHelper initGroupCreation() {
-        manager.navigateTo().groupsPage();
+        manager.getNavigationHelper().groupsPage();
         click(By.name("new"));
         return this;
     }

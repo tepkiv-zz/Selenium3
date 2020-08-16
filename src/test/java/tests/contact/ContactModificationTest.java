@@ -1,18 +1,17 @@
 package tests.contact;
 
+import com.BaseTest;
 import com.data.ContactData;
 import com.helpers.product.ContactHelper;
-import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.testng.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ContactModificationTest extends TestBase {
+public class ContactModificationTest extends BaseTest {
 
 
     @Test(dataProvider = "randomValidContactGenerator")

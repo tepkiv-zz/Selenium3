@@ -1,7 +1,7 @@
 package com.data;
 
 
-import com.TestBase;
+import com.BaseTest;
 import org.testng.annotations.DataProvider;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GroupData implements Comparable<GroupData> {
-    private TestBase testBase = new TestBase();
+    private BaseTest baseTest = new BaseTest();
     private String name;
     private String header;
     private String footer;
@@ -28,8 +28,8 @@ public class GroupData implements Comparable<GroupData> {
     public Iterator<Object[]> randomValidGroupGenerator() {
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i = 0; i < 5; i++) {
-            GroupData group = new GroupData().withName(TestBase.generateRandomString())
-                    .withHeader(TestBase.generateRandomString()).withFooter(TestBase.generateRandomString());
+            GroupData group = new GroupData().withName(BaseTest.generateRandomString())
+                    .withHeader(BaseTest.generateRandomString()).withFooter(BaseTest.generateRandomString());
             list.add(new Object[]{group});
         }
         return list.iterator();

@@ -1,16 +1,15 @@
 package tests.contact;
 
+import com.BaseTest;
 import com.data.ContactData;
 import com.helpers.product.ContactHelper;
-import com.TestBase;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.testng.Assert.assertEquals;
 
-public class EmptyContactCreationTest extends TestBase {
+public class EmptyContactCreationTest extends BaseTest {
 
     @Test
     public void TestEmptyContactCreation() throws Exception {
