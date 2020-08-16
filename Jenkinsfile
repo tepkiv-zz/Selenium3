@@ -1,18 +1,9 @@
 pipeline {
     agent any
-
-    parameters{
-        string(name: 'deploy_prod', defaultValue: 'deploy_tomcat_prod', description: 'lslsls')
-        string(name: 'deploy_stage', defaultValue: 'deploy_tomcat_stage', description: 'lslsls')
-    }
-    triggers {
-        pollSCM('* * * * *')
-    }
-
     stages{
         stage('Build'){
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -21,34 +12,31 @@ pipeline {
                 }
             }
         }
+        stage ('Deploy to Staging'){
+            steps {
+                build job: 'Deploy-to-staging'
+            }
+        }
 
-        stage ('Deployments'){
-            parallel{
-                stage ('deploy to staging'){
-                    steps {
-                        build job: 'deploy-to-staging'
-                    }
+        stage ('Deploy to Production'){
+            steps{
+                timeout(time:5, unit:'DAYS'){
+                    input message:'Approve PRODUCTION Deployment?'
                 }
 
-                stage ('Deploy to production'){
-                    steps{
-                        timeout(time:5, unit:'DAYS'){
-                            input message:'Approve PRODUCTION Deployment?'
-                        }
-                        build job: 'deploy-to-prod'
-                    }
+                build job: 'Deploy-to-Prod'
+            }
+            post {
+                success {
+                    echo 'Code deployed to Production.'
+                }
 
-                    post {
-                        success {
-                            echo 'Code deployed to Production.'
-                        }
-
-                        failure {
-                            echo ' Deployment failed.'
-                        }
-                    }
+                failure {
+                    echo ' Deployment failed.'
                 }
             }
         }
+
+
     }
 }

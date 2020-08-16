@@ -41,8 +41,8 @@ public class ApplicationManager {
 
     public ApplicationManager(Properties properties) {
         this.properties = properties;
-        appModel = new AppModel();
-        appModel.setGroups(getHibernateHelper().getListOfGroups());
+//        appModel = new AppModel();
+//        appModel.setGroups(getHibernateHelper().getListOfGroups());
         //  appModel.setContacts(getHibernateHelper().getListOfContacts());
     }
 
@@ -52,7 +52,7 @@ public class ApplicationManager {
 
     public static WebDriver getDriver() {
         LocalDesiredCapabilities localDesiredCapabilities = new LocalDesiredCapabilities();
-        String browser = properties.getProperty("browser");
+        String browser = properties.getProperty("browser", "googlechrome");
         if (driver == null) {
             switch (browser) {
                 case "ff":

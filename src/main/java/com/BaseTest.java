@@ -17,14 +17,15 @@ import java.util.*;
 
 public class BaseTest {
     public static WebDriver driver;
-    protected ApplicationManager app;
+    public static Properties properties = new Properties();
+    protected static ApplicationManager app;
+
     int checkCounter;
     int checkFrequency;
 
     @BeforeTest
     public void setUp() throws Exception {
-        // set default properties file
-        String configFile = System.getProperty("configFile", "application.properties");
+        String configFile = "src/test/resources/config/application.properties";
         Properties properties = new Properties();
         properties.load(new FileReader(new File(configFile)));
         app = new ApplicationManager(properties);

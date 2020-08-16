@@ -2,7 +2,6 @@ package tests;
 
 import com.ApplicationManager;
 import com.helpers.db.JdbcHelper;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -17,7 +16,7 @@ public class test extends SetupFolders{
     }
 
     @Test
-    public void test() {
+    public void learnSplit() {
         String b = "tests.test  tests.test tests.test";
         String a = "tests.test";
 
@@ -29,7 +28,7 @@ public class test extends SetupFolders{
     }
 
     @Test
-    public void regexp() {
+    public void learnRegexp() {
         String a = "+7 (916) 123-45-67";
         System.out.println(a.matches("\\+\\d+\\s*\\(\\d+\\)\\s*[\\d\\-]+"));
         a = a.replaceAll("[ ()\\-]", "");
