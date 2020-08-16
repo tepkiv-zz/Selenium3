@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Listeners(VideoListener.class)
-public class TestVideoCapture extends BaseTest {
+public class LearnVideoCapture extends BaseTest {
 
     @Test
     public void testVideoCapture() throws MalformedURLException {

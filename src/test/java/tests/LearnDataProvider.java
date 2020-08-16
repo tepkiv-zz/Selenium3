@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class TestDataProvider {
+public class LearnDataProvider {
 
     private static final String DATA_PROVIDER_NAME_INTEGER_INTEGER = "integerInteger";
     private static final String DATA_PROVIDER_NAME_STRING_STRING = "stringSTRING";

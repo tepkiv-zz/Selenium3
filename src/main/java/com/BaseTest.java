@@ -34,16 +34,12 @@ public class BaseTest {
         checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
     }
 
-    public boolean ttc(){
-        checkCounter++;
-        if(checkCounter>checkFrequency){
-            checkCounter=0;
-            return true;
+    public void open(String s) {
+        driver.get(s);
+    }
 
-        }else{
-            return false;
-        }
-
+    private void open() {
+        driver.get("google.com");
     }
 
     @AfterTest
@@ -88,12 +84,15 @@ public class BaseTest {
         return list;
     }
 
-    public void open(String s) {
-        driver.get(s);
-    }
+    public boolean ttc() {
+        checkCounter++;
+        if (checkCounter > checkFrequency) {
+            checkCounter = 0;
+            return true;
 
-    private void open() {
-        driver.get("google.com");
-    }
+        } else {
+            return false;
+        }
 
+    }
 }
