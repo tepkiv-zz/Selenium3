@@ -45,7 +45,7 @@ public class test extends SetupFolders{
     public void jdbc(){
         Properties properties = new Properties();
         try {
-            properties.load(new FileReader(new File("application.properties")));
+            properties.load(new FileReader(new File("local.properties")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +59,7 @@ public class test extends SetupFolders{
     public void hiberGroups(){
         Properties properties = new Properties();
         try {
-            properties.load(new FileReader(new File("application.properties")));
+            properties.load(new FileReader(new File("local.properties")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class test extends SetupFolders{
     public void hiberContacts(){
         Properties properties = new Properties();
         try {
-            properties.load(new FileReader(new File("application.properties")));
+            properties.load(new FileReader(new File("local.properties")));
         } catch (IOException e) {
             e.printStackTrace();
         }

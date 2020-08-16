@@ -41,9 +41,9 @@ public class ApplicationManager {
 
     public ApplicationManager(Properties properties) {
         this.properties = properties;
-//        appModel = new AppModel();
-//        appModel.setGroups(getHibernateHelper().getListOfGroups());
-        //  appModel.setContacts(getHibernateHelper().getListOfContacts());
+//      appModel = new AppModel();
+//      appModel.setGroups(getHibernateHelper().getListOfGroups());
+//      appModel.setContacts(getHibernateHelper().getListOfContacts());
     }
 
     public void stop() {
@@ -64,6 +64,7 @@ public class ApplicationManager {
                     break;
                 case "chrome":
                 case "googlechrome":
+                case "gc":
                     File chromeDriver = new File(properties.getProperty(TestProperties.CHROME_DRIVER_PATH));
                     System.setProperty(TestProperties.CHROME_DRIVER, chromeDriver.getAbsolutePath());
                     /*try {
@@ -97,8 +98,8 @@ public class ApplicationManager {
 
             assert driver != null;
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            driver.get(properties.getProperty(TestProperties.BASE_URL));
-            System.out.println(driver.getTitle());
+            //driver.get(properties.getProperty(TestProperties.BASE_URL));
+            //System.out.println(driver.getTitle());
 
         }
         return driver;
