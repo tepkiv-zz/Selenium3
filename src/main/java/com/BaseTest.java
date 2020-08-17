@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.util.*;
 
 
-public class BaseTest {
+public class BaseTest implements HasPriority {
     public static WebDriver driver;
     public static Properties properties = new Properties();
     protected static ApplicationManager app;
@@ -84,6 +84,8 @@ public class BaseTest {
         return list;
     }
 
+    private int priority;
+
     public boolean ttc() {
         checkCounter++;
         if (checkCounter > checkFrequency) {
@@ -93,6 +95,16 @@ public class BaseTest {
         } else {
             return false;
         }
-
     }
+
+    @Override
+    public int getPriority() {
+        return priority;
+    }
+
+    @Override
+    public void setPriority(int _priority) {
+        this.priority = _priority;
+    }
+
 }

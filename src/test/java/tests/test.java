@@ -3,6 +3,7 @@ package tests;
 import com.ApplicationManager;
 import com.helpers.db.JdbcHelper;
 import org.testng.annotations.Test;
+import tests.learnIMethodInterceptor.UserFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -68,7 +69,7 @@ public class test extends SetupFolders{
     }
 
     @Test
-    public void hiberContacts(){
+    public void hiberContacts() {
         Properties properties = new Properties();
         try {
             properties.load(new FileReader(new File("local.properties")));
@@ -77,5 +78,10 @@ public class test extends SetupFolders{
         }
         ApplicationManager app = new ApplicationManager(properties);
         app.getHibernateHelper().getListOfContacts();
+    }
+
+    @Test
+    public void getCVSData() {
+        new UserFactory().getCSVData();
     }
 }

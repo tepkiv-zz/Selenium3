@@ -12,10 +12,10 @@ public class LearnIHookable extends BaseTest {
 
     @Test
     public void learnRetry() {
-        if (attempt == 2) {
+        if (attempt == 3) {
             attempt = 1;
         } else {
-            Assert.fail("Failed on" + (attempt++) + " attempt");
+            Assert.fail("Failed on " + (attempt++) + " attempt");
         }
     }
 }
