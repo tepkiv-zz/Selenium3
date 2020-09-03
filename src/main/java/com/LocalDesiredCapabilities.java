@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 public class LocalDesiredCapabilities {
     public ChromeOptions chrome() {
-        sda
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-infobars", "--no-sandbox");
         options.addArguments("--start-maximized");
