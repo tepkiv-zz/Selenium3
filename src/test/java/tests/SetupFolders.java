@@ -1,19 +1,21 @@
 package tests;
 
+import com.BaseTest;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class SetupFolders {
+public class SetupFolders extends BaseTest {
 
     public final String TEMPORARY_FOLDER = "target" + File.separator + "logs";
     Path path = Paths.get(TEMPORARY_FOLDER);
 
     @BeforeSuite
-    public void prepareFolderStructure(){
+    public void prepareFolderStructure() {
         try {
             Files.createDirectories(path);
         } catch (IOException e) {

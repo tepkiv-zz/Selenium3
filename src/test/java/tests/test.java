@@ -2,6 +2,7 @@ package tests;
 
 import com.ApplicationManager;
 import com.helpers.db.JdbcHelper;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import tests.learnIMethodInterceptor.UserFactory;
 
@@ -10,10 +11,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class test extends SetupFolders{
+import static org.assertj.core.api.Assertions.assertThat;
+
+
+public class test extends SetupFolders {
+    public static final String GOOGLE_SEARCH_INPUT_XPATH = "//input[@class='gLFyf gsfi']";
+
     @Override
     public String toString() {
         return "tests.test{}";
+    }
+
+    @Test
+    public void openPageTest() {
+        driver.get("https://google.com");
+        assertThat(driver.findElement(By.xpath(GOOGLE_SEARCH_INPUT_XPATH)).isDisplayed())
+                .as("input box should present").isEqualTo(true);
+
+
     }
 
     @Test
