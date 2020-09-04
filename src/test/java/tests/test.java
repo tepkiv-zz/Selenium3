@@ -27,8 +27,6 @@ public class test extends SetupFolders {
         driver.get("https://google.com");
         assertThat(driver.findElement(By.xpath(GOOGLE_SEARCH_INPUT_XPATH)).isDisplayed())
                 .as("input box should present").isEqualTo(true);
-
-
     }
 
     @Test
