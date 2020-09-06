@@ -14,6 +14,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -57,10 +58,26 @@ public class ApplicationManager {
             switch (browser) {
                 case "ff":
                 case "firefox":
+                    /**
+                     * Solution
+                     * Upgrade JDK to recent levels JDK 8u191.
+                     * Upgrade Selenium to current levels Version 3.14.0.
+                     * Upgrade GeckoDriver to GeckoDriver v0.23.0 level.
+                     * GeckoDriver is present in the specified location.
+                     * GeckoDriver is having executable permission for non-root users.
+                     * Upgrade Firefox version to Firefox v63.0.1 levels.
+                     * Clean your Project Workspace through your IDE and Rebuild your project with required dependencies only.
+                     * If your base Web Client version is too old, then uninstall it through Revo Uninstaller and install a recent GA and released version of Web Client.
+                     * Take a System Reboot.
+                     * Execute your Test as a non-root user.
+                     * Always invoke driver.quit() within tearDown(){} method to close & destroy the WebDriver and Web Client instances gracefully.
+                     */
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.setCapability("marionette", true);
+                    firefoxOptions.setBinary(properties.getProperty(TestProperties.BINARY_PATH));
                     System.setProperty(TestProperties.GECKO_DRIVER, properties.getProperty(TestProperties.GECKO_DRIVER_PATH));
-                    driver = new FirefoxDriver();
+                    driver = new FirefoxDriver(firefoxOptions);
                     driver.manage().window().maximize();
-                    //System.setProperty("webdriver.firefox.marionette", "");
                     break;
                 case "chrome":
                 case "googlechrome":
@@ -88,8 +105,6 @@ public class ApplicationManager {
                 //todo implement
                 case "ie":
                 case "explorer":
-                    break;
-                //todo implement
                 case "internetexplorer":
                     break;
                 default:

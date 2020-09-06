@@ -16,7 +16,7 @@ public class test extends BaseTest {
         driver.get("http://localhost/litecart/admin/");
 
         driver.findElement(LoginPage.USERNAME).sendKeys(loginpassword);
-        driver.findElement(LoginPage.USERNAME).sendKeys(loginpassword);
+        driver.findElement(LoginPage.PASSWORD).sendKeys(loginpassword);
 
         driver.findElement(LoginPage.LOGIN).click();
 

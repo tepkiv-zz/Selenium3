@@ -11,4 +11,5 @@ public class TestProperties {
 
     public static final String REMOTE_DOWNLOAD_FOLDER_PROP = "test.remotefile.location";
     public static final String LOCAL_DOWNLOAD_FOLDER_PROP = "test.downloadfiles.location";
+    public static final String BINARY_PATH = "binary.path";
 }
