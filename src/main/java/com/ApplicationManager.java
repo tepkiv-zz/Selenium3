@@ -11,10 +11,13 @@ import conf.TestProperties;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -74,7 +77,7 @@ public class ApplicationManager {
                      */
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     firefoxOptions.setCapability("marionette", true);
-                    firefoxOptions.setBinary(properties.getProperty(TestProperties.BINARY_PATH));
+                    firefoxOptions.setBinary(properties.getProperty(TestProperties.WEBDRIVER_GECKO_BINARY));
                     System.setProperty(TestProperties.GECKO_DRIVER, properties.getProperty(TestProperties.GECKO_DRIVER_PATH));
                     driver = new FirefoxDriver(firefoxOptions);
                     driver.manage().window().maximize();
@@ -106,6 +109,12 @@ public class ApplicationManager {
                 case "ie":
                 case "explorer":
                 case "internetexplorer":
+                    InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
+                    internetExplorerOptions.setCapability("unexpectedAlertBehaviour", "dismiss");
+                    System.setProperty(TestProperties.IE_DRIVER_BINARY, "C:/Program Files/Internet Explorer/iexplore.exe");
+                    System.setProperty(TestProperties.IE_DRIVER, properties.getProperty(TestProperties.IE_DRIVER));
+                    driver = new InternetExplorerDriver(internetExplorerOptions);
+                    System.out.println(((HasCapabilities) driver).getCapabilities());
                     break;
                 default:
                     throw new Error("Unsupported Browser");

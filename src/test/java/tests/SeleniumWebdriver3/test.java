@@ -21,7 +21,7 @@ public class test extends BaseTest {
         driver.findElement(LoginPage.LOGIN).click();
 
         assertThat(driver.findElement(AdminPage.LEFT_MENU_BOX).isDisplayed())
-                .isEqualTo("Left menu box is not present after login").isEqualTo(true);
+                .as("Left menu box is not present after login").isEqualTo(true);
     }
 
 }
