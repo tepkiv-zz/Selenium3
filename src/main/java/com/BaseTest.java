@@ -108,9 +108,9 @@ public class BaseTest implements HasPriority {
         this.priority = _priority;
     }
 
-    private String loginpassword = "admin";
+    private final String loginpassword = "admin";
 
-    protected void login() {
+    protected void openAdmin() {
         driver.get("http://localhost/litecart/admin/");
 
         driver.findElement(LoginPage.USERNAME).sendKeys(loginpassword);

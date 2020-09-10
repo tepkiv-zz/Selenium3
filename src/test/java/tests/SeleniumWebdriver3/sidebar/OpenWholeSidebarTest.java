@@ -21,7 +21,7 @@ public class OpenWholeSidebarTest extends BaseTest {
      */
     @Test
     public void openPageTest() {
-        login();
+        openAdmin();
         assertThat(driver.findElement(By.xpath(AdminPage.SideBar.menu)).isDisplayed()).isEqualTo(true);
 
         // Go through menu list
