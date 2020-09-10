@@ -19,6 +19,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -32,6 +33,7 @@ public class ApplicationManager {
     public String baseUrl;
     private static Properties properties;
     private static WebDriver driver;
+    private static WebDriverWait webDriverWait;
 
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
@@ -121,9 +123,10 @@ public class ApplicationManager {
             }
 
             assert driver != null;
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             //driver.get(properties.getProperty(TestProperties.BASE_URL));
             //System.out.println(driver.getTitle());
+
 
         }
         return driver;

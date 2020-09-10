@@ -5,6 +5,7 @@ import com.data.ContactData;
 import com.data.ContactDataGenerator;
 import com.data.GroupData;
 import com.data.GroupDataGenerator;
+import com.litecart.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -107,4 +108,14 @@ public class BaseTest implements HasPriority {
         this.priority = _priority;
     }
 
+    private String loginpassword = "admin";
+
+    protected void login() {
+        driver.get("http://localhost/litecart/admin/");
+
+        driver.findElement(LoginPage.USERNAME).sendKeys(loginpassword);
+        driver.findElement(LoginPage.PASSWORD).sendKeys(loginpassword);
+
+        driver.findElement(LoginPage.LOGIN).click();
+    }
 }
