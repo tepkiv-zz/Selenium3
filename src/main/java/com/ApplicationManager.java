@@ -30,6 +30,9 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ApplicationManager {
+    public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
+    public WebDriverWait wait;
+
     public String baseUrl;
     private static Properties properties;
     private static WebDriver driver;
@@ -46,19 +49,21 @@ public class ApplicationManager {
     private List<ContactData> contacts;
 
     public ApplicationManager(Properties properties) {
-        this.properties = properties;
+        ApplicationManager.properties = properties;
 //      appModel = new AppModel();
 //      appModel.setGroups(getHibernateHelper().getListOfGroups());
 //      appModel.setContacts(getHibernateHelper().getListOfContacts());
     }
 
-    public void stop() {
-        driver.quit();
-    }
-
-    public static WebDriver getDriver() {
+    public WebDriver getDriver() {
         LocalDesiredCapabilities localDesiredCapabilities = new LocalDesiredCapabilities();
         String browser = properties.getProperty("browser", "googlechrome");
+        // Переиспользование браузера тестов в том же потоке
+        if (threadLocalDriver.get() != null) {
+            driver = threadLocalDriver.get();
+            wait = new WebDriverWait(driver, 10);
+        }
+
         if (driver == null) {
             switch (browser) {
                 case "ff":
@@ -82,6 +87,7 @@ public class ApplicationManager {
                     firefoxOptions.setBinary(properties.getProperty(TestProperties.WEBDRIVER_GECKO_BINARY));
                     System.setProperty(TestProperties.GECKO_DRIVER, properties.getProperty(TestProperties.GECKO_DRIVER_PATH));
                     driver = new FirefoxDriver(firefoxOptions);
+                    threadLocalDriver.set(driver);
                     driver.manage().window().maximize();
                     break;
                 case "chrome":
@@ -96,6 +102,7 @@ public class ApplicationManager {
                         e.printStackTrace();
                     }*/
                     driver = new ChromeDriver(localDesiredCapabilities.chrome());
+                    threadLocalDriver.set(driver);
                     break;
                 case "mobileApp":
                     DesiredCapabilities androidCapabilities = new DesiredCapabilities();
@@ -116,6 +123,7 @@ public class ApplicationManager {
                     System.setProperty(TestProperties.IE_DRIVER_BINARY, "C:/Program Files/Internet Explorer/iexplore.exe");
                     System.setProperty(TestProperties.IE_DRIVER, properties.getProperty(TestProperties.IE_DRIVER));
                     driver = new InternetExplorerDriver(internetExplorerOptions);
+                    threadLocalDriver.set(driver);
                     System.out.println(((HasCapabilities) driver).getCapabilities());
                     break;
                 default:
@@ -123,12 +131,14 @@ public class ApplicationManager {
             }
 
             assert driver != null;
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            wait = new WebDriverWait(driver, 30);
             //driver.get(properties.getProperty(TestProperties.BASE_URL));
             //System.out.println(driver.getTitle());
-
-
         }
+        /*Runtime.getRuntime().addShutdownHook(
+                new Thread(() -> { driver.quit(); driver = null; }));*/
         return driver;
     }
 

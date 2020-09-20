@@ -24,7 +24,7 @@ public class ActionsExercises extends BaseTest {
     @Test
     public void threads() throws InterruptedException {
         open("https://www.ksrtc.in");
-        ScreenShotManager.saveScreenShot();
+        new ScreenShotManager().saveScreenShot();
     }
 
     @Test
@@ -113,7 +113,7 @@ public class ActionsExercises extends BaseTest {
     @Test
     public void takeScreenShot() throws InterruptedException {
         open("https://www.ksrtc.in");
-        ScreenShotManager.saveScreenShot();
+        new ScreenShotManager().saveScreenShot();
     }
 
     private void autoSuggestiveField(String value) {

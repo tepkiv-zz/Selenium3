@@ -1,6 +1,7 @@
-package tests.SeleniumWebdriver3.sidebar;
+package tests.SeleniumWebdriver3;
 
 import com.BaseTest;
+import com.litecart.MainPage;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 

@@ -6,7 +6,10 @@ import com.data.ContactDataGenerator;
 import com.data.GroupData;
 import com.data.GroupDataGenerator;
 import com.litecart.LoginPage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -17,7 +20,8 @@ import java.util.*;
 
 
 public class BaseTest implements HasPriority {
-    public static WebDriver driver;
+    public WebDriver driver;
+
     public static Properties properties = new Properties();
     protected static ApplicationManager app;
 
@@ -30,7 +34,7 @@ public class BaseTest implements HasPriority {
         Properties properties = new Properties();
         properties.load(new FileReader(new File(configFile)));
         app = new ApplicationManager(properties);
-        driver = ApplicationManager.getDriver();
+        driver = app.getDriver();
         checkCounter = 0;
         checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
     }
@@ -45,7 +49,7 @@ public class BaseTest implements HasPriority {
 
     @AfterTest
     public void tearDown() throws Exception {
-        app.stop();
+        driver.quit();
     }
 
     public static String generateRandomString() {
@@ -87,6 +91,19 @@ public class BaseTest implements HasPriority {
 
     private int priority;
 
+    public List<WebElement> getListOfElements(String geoZonesTableRows) {
+        return app.getDriver().findElements(By.xpath(geoZonesTableRows));
+    }
+
+    public WebElement findElement(By by) {
+        WebElement elem = app.getDriver().findElement(by);
+        // draw a border around the found element
+        if (app.getDriver() instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) app.getDriver()).executeScript("arguments[0].style.border='3px solid red'", elem);
+        }
+        return elem;
+    }
+
     public boolean ttc() {
         checkCounter++;
         if (checkCounter > checkFrequency) {
@@ -111,11 +128,11 @@ public class BaseTest implements HasPriority {
     private final String loginpassword = "admin";
 
     protected void openAdmin() {
-        driver.get("http://localhost/litecart/admin/");
+        app.getDriver().get("http://localhost/litecart/admin/");
 
-        driver.findElement(LoginPage.USERNAME).sendKeys(loginpassword);
-        driver.findElement(LoginPage.PASSWORD).sendKeys(loginpassword);
+        app.getDriver().findElement(LoginPage.USERNAME).sendKeys(loginpassword);
+        app.getDriver().findElement(LoginPage.PASSWORD).sendKeys(loginpassword);
 
-        driver.findElement(LoginPage.LOGIN).click();
+        app.getDriver().findElement(LoginPage.LOGIN).click();
     }
 }
