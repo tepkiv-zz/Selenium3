@@ -2,6 +2,7 @@ package tests.contact;
 
 import com.BaseTest;
 import com.data.ContactData;
+import com.data.ContactDataGenerator;
 import com.helpers.product.ContactHelper;
 import com.utils.ModifiedSortedList;
 import org.testng.annotations.DataProvider;
@@ -9,7 +10,9 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.data.ContactDataGenerator.loadContactsFromCsvFile;
 import static com.data.ContactDataGenerator.loadGroupsFromXMLFile;
@@ -17,6 +20,19 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class ContactCreationTest extends BaseTest {
+    /* Contact */
+    @DataProvider
+    public Iterator<Object[]> randomValidContactGenerator() {
+        return wrapContactsForDataProvider(ContactDataGenerator.generateRandomContacts(1)).iterator();
+    }
+
+    protected List<Object[]> wrapContactsForDataProvider(List<ContactData> listContactData) {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (ContactData contact : listContactData) {
+            list.add(new Object[]{contact});
+        }
+        return list;
+    }
 
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactCreation(ContactData contact) throws Exception {

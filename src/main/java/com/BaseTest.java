@@ -1,10 +1,6 @@
 package com;
 
 
-import com.data.ContactData;
-import com.data.ContactDataGenerator;
-import com.data.GroupData;
-import com.data.GroupDataGenerator;
 import com.litecart.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,11 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 
 public class BaseTest implements HasPriority {
@@ -31,7 +28,6 @@ public class BaseTest implements HasPriority {
     @BeforeTest
     public void setUp() throws Exception {
         String configFile = "src/test/resources/config/local.properties";
-        Properties properties = new Properties();
         properties.load(new FileReader(new File(configFile)));
         app = new ApplicationManager(properties);
         driver = app.getDriver();
@@ -61,45 +57,23 @@ public class BaseTest implements HasPriority {
         }
     }
 
-    /* Contact */
-    @DataProvider
-    public Iterator<Object[]> randomValidContactGenerator() {
-        return wrapContactsForDataProvider(ContactDataGenerator.generateRandomContacts(1)).iterator();
-    }
-
-    protected List<Object[]> wrapContactsForDataProvider(List<ContactData> listContactData) {
-        List<Object[]> list = new ArrayList<Object[]>();
-        for (ContactData contact : listContactData) {
-            list.add(new Object[]{contact});
-        }
-        return list;
-    }
-
-    /* Group */
-    @DataProvider
-    public Iterator<Object[]> randomValidGroupGenerator() {
-        return wrapGroupsForDataProvider(GroupDataGenerator.generateRandomGroups(3)).iterator();
-    }
-
-    protected List<Object[]> wrapGroupsForDataProvider(List<GroupData> listGroupData) {
-        List<Object[]> list = new ArrayList<Object[]>();
-        for (GroupData group : listGroupData) {
-            list.add(new Object[]{group});
-        }
-        return list;
-    }
-
     private int priority;
 
-    public List<WebElement> getListOfElements(String geoZonesTableRows) {
-        return app.getDriver().findElements(By.xpath(geoZonesTableRows));
+    private final String loginpassword = "admin";
+
+    public List<WebElement> findElements(String geoZonesTableRows) {
+        List<WebElement> elements = driver.findElements(By.xpath(geoZonesTableRows));
+        if (driver instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", elements);
+        }
+        return elements;
     }
 
     public WebElement findElement(By by) {
-        WebElement elem = app.getDriver().findElement(by);
+        WebElement elem = driver.findElement(by);
         // draw a border around the found element
-        if (app.getDriver() instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) app.getDriver()).executeScript("arguments[0].style.border='3px solid red'", elem);
+        if (driver instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", elem);
         }
         return elem;
     }
@@ -115,6 +89,19 @@ public class BaseTest implements HasPriority {
         }
     }
 
+    public Double getFontSize(WebElement element) {
+        return Double.parseDouble(element.getCssValue("font-size").replace("px", ""));
+    }
+
+    protected void openAdmin() {
+        driver.get("http://localhost/litecart/admin/");
+
+        driver.findElement(LoginPage.USERNAME).sendKeys(loginpassword);
+        driver.findElement(LoginPage.PASSWORD).sendKeys(loginpassword);
+
+        driver.findElement(LoginPage.LOGIN).click();
+    }
+
     @Override
     public int getPriority() {
         return priority;
@@ -125,14 +112,4 @@ public class BaseTest implements HasPriority {
         this.priority = _priority;
     }
 
-    private final String loginpassword = "admin";
-
-    protected void openAdmin() {
-        app.getDriver().get("http://localhost/litecart/admin/");
-
-        app.getDriver().findElement(LoginPage.USERNAME).sendKeys(loginpassword);
-        app.getDriver().findElement(LoginPage.PASSWORD).sendKeys(loginpassword);
-
-        app.getDriver().findElement(LoginPage.LOGIN).click();
-    }
 }

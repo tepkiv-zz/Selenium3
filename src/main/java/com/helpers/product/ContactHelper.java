@@ -2,6 +2,7 @@ package com.helpers.product;
 
 import com.ApplicationManager;
 import com.data.ContactData;
+import com.data.ContactDataGenerator;
 import com.helpers.WebDriverHelperBase;
 import com.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
@@ -10,7 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.DataProvider;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +23,7 @@ public class ContactHelper extends WebDriverHelperBase {
 
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
-    private ModifiedSortedList<ContactData> cachedContacts = new ModifiedSortedList<ContactData>();
+    private final ModifiedSortedList<ContactData> cachedContacts = new ModifiedSortedList<ContactData>();
 
     public ContactHelper(ApplicationManager manager) {
         super(manager);
@@ -160,11 +164,21 @@ public class ContactHelper extends WebDriverHelperBase {
 
     private boolean onContactPage() {
         String currentUrl = driver.getCurrentUrl();
-        if (currentUrl.contains("/edit.php") &&
-                driver.findElement(By.xpath("//input[@value='Enter' and @type='submit' and @name='submit']")).isDisplayed()) {
-            return true;
-        } else {
-            return false;
+        return currentUrl.contains("/edit.php") &&
+                driver.findElement(By.xpath("//input[@value='Enter' and @type='submit' and @name='submit']")).isDisplayed();
+    }
+
+    /* Contact */
+    @DataProvider
+    public Iterator<Object[]> randomValidContactGenerator() {
+        return wrapContactsForDataProvider(ContactDataGenerator.generateRandomContacts(1)).iterator();
+    }
+
+    protected List<Object[]> wrapContactsForDataProvider(List<ContactData> listContactData) {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (ContactData contact : listContactData) {
+            list.add(new Object[]{contact});
         }
+        return list;
     }
 }

@@ -34,7 +34,7 @@ public class GeoTimezoneSortingTest extends BaseTest {
 
         List<String> countries = new ArrayList<>();
         // Collect countries
-        for (WebElement element : getListOfElements(CONTENT_TABLE_ROWS)) {
+        for (WebElement element : findElements(CONTENT_TABLE_ROWS)) {
             countries.add(element.findElement(By.xpath(COUNTRY_COLUMN)).getText());
         }
         assertThat(Ordering.natural().isOrdered(countries)).as("Countries were not sorted alphabetically").isEqualTo(true);
@@ -47,7 +47,7 @@ public class GeoTimezoneSortingTest extends BaseTest {
 
         List<String> countries = new ArrayList<>();
         // Collect countries, Zone amount > 0
-        for (WebElement element : getListOfElements(CONTENT_TABLE_ROWS)) {
+        for (WebElement element : findElements(CONTENT_TABLE_ROWS)) {
             if (Integer.parseInt(element.findElement(By.xpath(ZONES_COLUMN)).getText()) != 0) {
                 countries.add(element.findElement(By.xpath(COUNTRY_COLUMN)).getText());
             }
@@ -60,7 +60,7 @@ public class GeoTimezoneSortingTest extends BaseTest {
                 List<String> codes = new ArrayList<>();
                 findElement(By.xpath(CONTENT_TABLE_ROWS + COUNTRY_COLUMN.replace(".", "") + String.format("[contains(text(),'%s')]", country))).click();
                 //Collect zones
-                for (WebElement webElement : getListOfElements(ZONE_TABLE_CODE_COLUMN)) {
+                for (WebElement webElement : findElements(ZONE_TABLE_CODE_COLUMN)) {
                     codes.add(webElement.getText());
                 }
                 logger.info("{} found for {}", country, codes);
@@ -78,12 +78,12 @@ public class GeoTimezoneSortingTest extends BaseTest {
 
         SoftAssertions.assertSoftly(softly -> {
             // Go through countries available at the Geo Zones page
-            for (int j = 0; j < getListOfElements(GeoZonesPage.GEO_ZONES_TABLE_ROWS).size(); j++) {
-                getListOfElements(GEO_ZONES_TABLE_ROWS + NAME_COLUMN).get(j).click();
+            for (int j = 0; j < findElements(GeoZonesPage.GEO_ZONES_TABLE_ROWS).size(); j++) {
+                findElements(GEO_ZONES_TABLE_ROWS + NAME_COLUMN).get(j).click();
                 List<String> countries = new ArrayList<>();
                 // Gather Countries available at the geo zone page specific to country
-                for (int i = 0; i < getListOfElements(FORM_GEO_ZONE_TABLE_ROW).size(); i++) {
-                    countries.add(getListOfElements(FORM_GEO_ZONE_TABLE_ROW + EditGeoZonePage.COUNTRY_COLUMN).get(i).getText());
+                for (int i = 0; i < findElements(FORM_GEO_ZONE_TABLE_ROW).size(); i++) {
+                    countries.add(findElements(FORM_GEO_ZONE_TABLE_ROW + EditGeoZonePage.COUNTRY_COLUMN).get(i).getText());
                     findElement(By.xpath(EditGeoZonePage.CANCEL_BUTTON)).click();
                 }
                 // compare

@@ -2,11 +2,15 @@ package com.helpers.product;
 
 import com.ApplicationManager;
 import com.data.GroupData;
+import com.data.GroupDataGenerator;
 import com.helpers.WebDriverHelperBase;
 import com.utils.ModifiedSortedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.DataProvider;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -125,12 +129,21 @@ public class GroupHelper extends WebDriverHelperBase {
 
     private boolean onGroupsPage() {
         String currentUrl = driver.getCurrentUrl();
-        if (currentUrl.contains("/group.php") && driver.findElements(By.name("new")).size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return currentUrl.contains("/group.php") && driver.findElements(By.name("new")).size() > 0;
     }
 
+    /* Group */
+    @DataProvider
+    public Iterator<Object[]> randomValidGroupGenerator() {
+        return wrapGroupsForDataProvider(GroupDataGenerator.generateRandomGroups(3)).iterator();
+    }
+
+    protected List<Object[]> wrapGroupsForDataProvider(List<GroupData> listGroupData) {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (GroupData group : listGroupData) {
+            list.add(new Object[]{group});
+        }
+        return list;
+    }
 
 }
