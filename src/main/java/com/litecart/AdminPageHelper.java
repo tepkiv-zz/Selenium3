@@ -1,7 +1,6 @@
-package tests.SeleniumWebdriver3;
+package com.litecart;
 
 import com.BaseTest;
-import com.litecart.SidebarMenuEnum;
 import org.openqa.selenium.By;
 
 import java.util.Arrays;

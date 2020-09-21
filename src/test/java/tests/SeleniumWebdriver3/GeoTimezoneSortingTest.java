@@ -2,10 +2,7 @@ package tests.SeleniumWebdriver3;
 
 import com.BaseTest;
 import com.google.common.collect.Ordering;
-import com.litecart.EditCountryPage;
-import com.litecart.EditGeoZonePage;
-import com.litecart.GeoZonesPage;
-import com.litecart.SidebarMenuEnum;
+import com.litecart.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;

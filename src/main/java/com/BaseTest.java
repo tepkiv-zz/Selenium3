@@ -45,7 +45,7 @@ public class BaseTest implements HasPriority {
 
     @AfterTest
     public void tearDown() throws Exception {
-        driver.quit();
+        //driver.quit();
     }
 
     public static String generateRandomString() {
