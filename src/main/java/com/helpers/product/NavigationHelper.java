@@ -1,12 +1,12 @@
 package com.helpers.product;
 
-import com.ApplicationManager;
+import com.BrowserController;
 import com.helpers.WebDriverHelperBase;
 import org.openqa.selenium.By;
 
 public class NavigationHelper extends WebDriverHelperBase {
 
-    public NavigationHelper(ApplicationManager manager) {
+    public NavigationHelper(BrowserController manager) {
         super(manager);
     }
 
@@ -17,12 +17,8 @@ public class NavigationHelper extends WebDriverHelperBase {
     }
 
     private boolean onGroupsPage() {
-        if (driver.getCurrentUrl().contains("group.php")
-                && driver.findElements(By.name("new")).size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return driver.getCurrentUrl().contains("group.php")
+                && driver.findElements(By.name("new")).size() > 0;
     }
 
     public boolean onMainPage() {

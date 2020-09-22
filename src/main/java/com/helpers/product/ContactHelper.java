@@ -1,6 +1,6 @@
 package com.helpers.product;
 
-import com.ApplicationManager;
+import com.BrowserController;
 import com.data.ContactData;
 import com.data.ContactDataGenerator;
 import com.helpers.WebDriverHelperBase;
@@ -25,7 +25,7 @@ public class ContactHelper extends WebDriverHelperBase {
     public static boolean MODIFICATION = false;
     private final ModifiedSortedList<ContactData> cachedContacts = new ModifiedSortedList<ContactData>();
 
-    public ContactHelper(ApplicationManager manager) {
+    public ContactHelper(BrowserController manager) {
         super(manager);
     }
 

@@ -1,12 +1,7 @@
 package com.helpers;
 
-import com.ApplicationManager;
-import com.helpers.HelperBase;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import com.BrowserController;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,12 +9,12 @@ public abstract class WebDriverHelperBase extends HelperBase {
 
     public WebDriver driver;
     public boolean acceptNextAlert = true;
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
-    public WebDriverHelperBase(ApplicationManager manager) {
+    public WebDriverHelperBase(BrowserController manager) {
         super(manager);
         this.driver = manager.getDriver();
-        wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver, 10);
     }
 
     public String closeAlertAndGetItsText() {

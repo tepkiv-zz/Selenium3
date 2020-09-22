@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -17,22 +18,19 @@ import java.util.Random;
 
 
 public class BaseTest implements HasPriority {
-    public WebDriver driver;
-
+    public static WebDriver driver;
+    protected static BrowserController app;
     public static Properties properties = new Properties();
-    protected static ApplicationManager app;
+    private final String loginpassword = "admin";
 
     int checkCounter;
     int checkFrequency;
+    public String RESOURCES_FOLDER = "src/test/resources/";
+    private int priority;
 
-    @BeforeTest
-    public void setUp() throws Exception {
-        String configFile = "src/test/resources/config/local.properties";
-        properties.load(new FileReader(new File(configFile)));
-        app = new ApplicationManager(properties);
-        driver = app.getDriver();
-        checkCounter = 0;
-        checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
+    public static Select findSelect(By xpath) {
+        findElement(xpath).clear();
+        return (Select) findElement(xpath);
     }
 
     public void open(String s) {
@@ -57,25 +55,31 @@ public class BaseTest implements HasPriority {
         }
     }
 
-    private int priority;
-
-    private final String loginpassword = "admin";
-
-    public List<WebElement> findElements(String geoZonesTableRows) {
-        List<WebElement> elements = driver.findElements(By.xpath(geoZonesTableRows));
-        if (driver instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", elements);
-        }
-        return elements;
-    }
-
-    public WebElement findElement(By by) {
-        WebElement elem = driver.findElement(by);
+    public static WebElement findElement(By by) {
+        WebElement elem = app.getDriver().findElement(by);
         // draw a border around the found element
-        if (driver instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", elem);
+        if (app.getDriver() instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) app.getDriver()).executeScript("arguments[0].style.border='3px solid red'", elem);
         }
         return elem;
+    }
+
+    @BeforeTest
+    public void setUp() throws Exception {
+        String configFile = "src/test/resources/config/local.properties";
+        properties.load(new FileReader(new File(configFile)));
+        app = new BrowserController(properties);
+        driver = app.getDriver();
+        checkCounter = 0;
+        checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
+    }
+
+    public List<WebElement> findElements(String geoZonesTableRows) {
+        List<WebElement> elements = app.getDriver().findElements(By.xpath(geoZonesTableRows));
+        if (app.getDriver() instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) app.getDriver()).executeScript("arguments[0].style.border='3px solid red'", elements);
+        }
+        return elements;
     }
 
     public boolean ttc() {

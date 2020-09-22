@@ -1,14 +1,12 @@
 package com.helpers;
 
-import com.ApplicationManager;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.Select;
+import com.BrowserController;
 
 public abstract class HelperBase {
 
-    protected ApplicationManager manager;
+    protected BrowserController manager;
 
-    public HelperBase(ApplicationManager manager) {
+    public HelperBase(BrowserController manager) {
         this.manager = manager;
     }
 }

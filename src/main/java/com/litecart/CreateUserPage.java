@@ -1,7 +1,6 @@
 package com.litecart;
 
-public class CreateUserPage {
-    public static final String PARENT = "//*[@id='page']";
+public class CreateUserPage extends Page {
     public static final String CUSTOMER_FORM = PARENT + "//*[@name='customer_form']";
     public static final String INPUT_TEMPLATE = "//label[contains(text(),'%s')]/..//input";
     public static final String SELECT_TEMPLATE = "//div[contains(@class,'form-group')]//label[contains(text(),'%s')]/..//select";

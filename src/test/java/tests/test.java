@@ -1,6 +1,6 @@
 package tests;
 
-import com.ApplicationManager;
+import com.BrowserController;
 import com.helpers.db.JdbcHelper;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
@@ -63,8 +63,8 @@ public class test extends SetupFolders {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ApplicationManager app = new ApplicationManager(properties);
-        JdbcHelper jdbc = new JdbcHelper(app,"jdbc:mysql://127.0.0.1/addressbook?user=root&password=");
+        BrowserController app = new BrowserController(properties);
+        JdbcHelper jdbc = new JdbcHelper(app, "jdbc:mysql://127.0.0.1/addressbook?user=root&password=");
         //System.out.println(jdbc.listGroups());
         System.out.println(jdbc.listContacts());
     }
@@ -77,7 +77,7 @@ public class test extends SetupFolders {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ApplicationManager app = new ApplicationManager(properties);
+        BrowserController app = new BrowserController(properties);
         app.getHibernateHelper().getListOfGroups();
     }
 
@@ -89,7 +89,7 @@ public class test extends SetupFolders {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ApplicationManager app = new ApplicationManager(properties);
+        BrowserController app = new BrowserController(properties);
         app.getHibernateHelper().getListOfContacts();
     }
 

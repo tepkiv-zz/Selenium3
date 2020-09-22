@@ -1,6 +1,6 @@
 package com.helpers.product;
 
-import com.ApplicationManager;
+import com.BrowserController;
 import com.data.GroupData;
 import com.data.GroupDataGenerator;
 import com.helpers.WebDriverHelperBase;
@@ -18,7 +18,7 @@ public class GroupHelper extends WebDriverHelperBase {
 
     private ModifiedSortedList<GroupData> cachedGroups;
 
-    public GroupHelper(ApplicationManager manager) {
+    public GroupHelper(BrowserController manager) {
         super(manager);
     }
 

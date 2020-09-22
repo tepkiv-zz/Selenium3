@@ -1,21 +1,17 @@
 package com.helpers.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import com.ApplicationManager;
+import com.BrowserController;
 import com.data.ContactData;
 import com.data.GroupData;
 import com.utils.ModifiedSortedList;
+
+import java.sql.*;
 
 public class JdbcHelper {
 
     private Connection conn;
 
-    public JdbcHelper(ApplicationManager app, String url) {
+    public JdbcHelper(BrowserController app, String url) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception e) {

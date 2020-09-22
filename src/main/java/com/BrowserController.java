@@ -29,13 +29,14 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 
-public class ApplicationManager {
+public class BrowserController {
     public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
+    private static WebDriver driver;
+
     public WebDriverWait wait;
 
     public String baseUrl;
     private static Properties properties;
-    private static WebDriver driver;
     private static WebDriverWait webDriverWait;
 
     private NavigationHelper navigationHelper;
@@ -48,8 +49,8 @@ public class ApplicationManager {
     private List<GroupData> groups;
     private List<ContactData> contacts;
 
-    public ApplicationManager(Properties properties) {
-        ApplicationManager.properties = properties;
+    public BrowserController(Properties properties) {
+        BrowserController.properties = properties;
 //      appModel = new AppModel();
 //      appModel.setGroups(getHibernateHelper().getListOfGroups());
 //      appModel.setContacts(getHibernateHelper().getListOfContacts());
@@ -131,9 +132,8 @@ public class ApplicationManager {
             }
 
             assert driver != null;
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-            wait = new WebDriverWait(driver, 30);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            wait = new WebDriverWait(driver, 10);
             //driver.get(properties.getProperty(TestProperties.BASE_URL));
             //System.out.println(driver.getTitle());
         }
@@ -183,7 +183,7 @@ public class ApplicationManager {
     }
 
     public String getProperty(String key) {
-       return  properties.getProperty(key);
+        return properties.getProperty(key);
     }
 
 

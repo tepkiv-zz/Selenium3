@@ -13,7 +13,7 @@ public class UserRegistrationTest extends BaseTest {
 
     @Test
     public void openPageTest() {
-        CreateUserPageHelper createUserPageHelper = new CreateUserPageHelper(driver);
+        CreateUserPageHelper createUserPageHelper = new CreateUserPageHelper();
 
         driver.get("http://localhost/litecart/create_account");
 
