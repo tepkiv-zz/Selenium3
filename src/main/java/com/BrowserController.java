@@ -182,6 +182,10 @@ public class BrowserController {
         this.contacts = new ModifiedSortedList<ContactData>(contacts);
     }
 
+    public WebDriverWait getWait() {
+        return wait;
+    }
+
     public String getProperty(String key) {
         return properties.getProperty(key);
     }

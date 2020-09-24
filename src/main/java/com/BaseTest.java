@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -19,6 +20,7 @@ import java.util.Random;
 
 public class BaseTest implements HasPriority {
     public static WebDriver driver;
+    public static WebDriverWait wait;
     protected static BrowserController app;
     public static Properties properties = new Properties();
     private final String loginpassword = "admin";
@@ -29,8 +31,9 @@ public class BaseTest implements HasPriority {
     private int priority;
 
     public static Select findSelect(By xpath) {
-        findElement(xpath).clear();
-        return (Select) findElement(xpath);
+        Select select = new Select(findElement(xpath));
+        select.deselectAll();
+        return select;
     }
 
     public void open(String s) {
@@ -70,6 +73,7 @@ public class BaseTest implements HasPriority {
         properties.load(new FileReader(new File(configFile)));
         app = new BrowserController(properties);
         driver = app.getDriver();
+        wait = app.getWait();
         checkCounter = 0;
         checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
     }
