@@ -1,4 +1,6 @@
-package com.litecart;
+package com.litecart.edit_pages;
+
+import com.litecart.Page;
 
 public class EditPage extends Page {
     public static final String CANCEL_BUTTON = "//button[@value='Cancel']";

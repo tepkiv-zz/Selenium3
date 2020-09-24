@@ -1,4 +1,4 @@
-package com.litecart;
+package com.litecart.edit_pages;
 
 public class EditCountryPage extends EditPage {
    public static final String ZONE_TABLE = "//h2[contains(text(),'Zones')]/../table";

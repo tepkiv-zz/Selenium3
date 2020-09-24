@@ -1,4 +1,4 @@
-package com.litecart;
+package com.litecart.edit_pages;
 
 public class EditGeoZonePage extends EditPage {
 

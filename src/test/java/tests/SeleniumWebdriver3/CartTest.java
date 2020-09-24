@@ -1,8 +1,8 @@
 package tests.SeleniumWebdriver3;
 
 import com.BaseTest;
+import com.litecart.CheckoutPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
 public class CartTest extends BaseTest {
@@ -16,23 +16,18 @@ public class CartTest extends BaseTest {
         for (int i = 1; i <= 3; i++) {
             // 2) добавить его в корзину (при этом может случайно добавиться товар, кото рый там уже есть, ничего страшного)
             findElement(By.xpath("//*[@name='add_cart_product']")).click();
-            String count = findElement(By.xpath("//div[contains(@class,'badge quantity')]")).getText();
+            String count = findElement(By.xpath(CheckoutPage.checkoutBag)).getText();
             // 3) подождать, пока счётчик товаров в корзине обновится
-            wait.until(
-                    ExpectedConditions.presenceOfElementLocated(
-                            By.xpath(String.format("//div[contains(@class,'badge quantity')][contains(text(),'%s')]", count))));
+            waitElementPresence(By.xpath(String.format(CheckoutPage.checkoutBag + "[contains(text(),'%s')]", count)));
             // 4) вернуться на главную страницу, повторить предыдущие шаги ещё два раза, чтобы в общей сложности в корзине было 3 единицы товара
         }
         // 5) открыть корзину (в правом верхнем углу кликнуть по ссылке Checkout)
-        findElement(By.xpath("//div[@id='cart']")).click();
-        wait.until(
-                ExpectedConditions.presenceOfElementLocated(
-                        By.xpath("//button[@class='btn btn-danger']")));
+        findElement(CheckoutPage.cart).click();
+        waitElementPresence(By.xpath("//button[@class='btn btn-danger']"));
 
         // 6) удалить все товары из корзины один за другим, после каждого удаления подождать, пока внизу обновится таблица
         findElement(By.xpath("//button[@class='btn btn-danger']")).click();
-        wait.until(
-                ExpectedConditions.invisibilityOfElementLocated(
-                        By.xpath("//table[contains(@class,'items table')]//tr[@class='item']")));
+        waitElementInvisibility(CheckoutPage.checkoutTable);
     }
+
 }

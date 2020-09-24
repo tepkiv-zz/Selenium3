@@ -1,4 +1,4 @@
-package com.litecart;
+package com.litecart.edit_pages;
 
 public class EditAccountPage {
     public static final String ACCOUNT_INFORMATION_PARENT = "//div[@id='page']";

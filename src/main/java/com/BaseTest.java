@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
@@ -78,12 +79,21 @@ public class BaseTest implements HasPriority {
         checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
     }
 
-    public List<WebElement> findElements(String geoZonesTableRows) {
-        List<WebElement> elements = app.getDriver().findElements(By.xpath(geoZonesTableRows));
+    public List<WebElement> findElements(String stringXpath) {
+        List<WebElement> elements = app.getDriver().findElements(By.xpath(stringXpath));
         if (app.getDriver() instanceof JavascriptExecutor) {
             ((JavascriptExecutor) app.getDriver()).executeScript("arguments[0].style.border='3px solid red'", elements);
         }
         return elements;
+    }
+
+
+    public void waitElementPresence(By xpath) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+    }
+
+    public void waitElementInvisibility(By xpath) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(xpath));
     }
 
     public boolean ttc() {
