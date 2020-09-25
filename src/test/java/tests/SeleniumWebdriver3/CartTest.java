@@ -5,10 +5,12 @@ import com.litecart.CheckoutPage;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class CartTest extends BaseTest {
 
     @Test
-    public void addToCart() {
+    public void removeProductFromCart() {
         // 1) открыть главную страницу
         driver.get("http://localhost/litecart");
         // 2) открыть первый товар из списка
@@ -24,10 +26,16 @@ public class CartTest extends BaseTest {
         // 5) открыть корзину (в правом верхнем углу кликнуть по ссылке Checkout)
         findElement(CheckoutPage.cart).click();
         waitElementPresence(By.xpath("//button[@class='btn btn-danger']"));
-
         // 6) удалить все товары из корзины один за другим, после каждого удаления подождать, пока внизу обновится таблица
-        findElement(By.xpath("//button[@class='btn btn-danger']")).click();
-        waitElementInvisibility(CheckoutPage.checkoutTable);
+        String productsForDeletion = findElement(By.xpath("//input[@class='form-control']")).getText();
+        for (int i = Integer.parseInt(productsForDeletion); i > 0; i--) {
+            findElement(By.xpath("//input[@class='form-control']")).sendKeys(String.valueOf(i));
+            findElement(By.xpath("//button[@class='btn btn-default']")).sendKeys(String.valueOf(i));
+            waitElementInvisibility(CheckoutPage.checkoutTable);
+        }
+        assertThat(driver.findElement(By.xpath("//table[contains(@class,'items')]")).isDisplayed()).isEqualTo(false);
+
+
     }
 
 }
