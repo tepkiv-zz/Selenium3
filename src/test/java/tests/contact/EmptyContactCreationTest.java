@@ -13,7 +13,7 @@ public class EmptyContactCreationTest extends BaseTest {
 
     @Test
     public void TestEmptyContactCreation() throws Exception {
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
         // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
         // actions

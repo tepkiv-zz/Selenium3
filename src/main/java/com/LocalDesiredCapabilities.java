@@ -5,11 +5,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 public class LocalDesiredCapabilities {
     public ChromeOptions chrome() {
@@ -25,6 +28,9 @@ public class LocalDesiredCapabilities {
         options.setExperimentalOption("prefs", chromePrefs);
         options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         options.setCapability("chrome.switches", Collections.singletonList("--ignore-certificate-errors"));
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        options.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
         return options;
     }
 

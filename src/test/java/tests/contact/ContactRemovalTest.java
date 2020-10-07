@@ -15,7 +15,7 @@ public class ContactRemovalTest extends BaseTest {
 
     @Test
     public void testContactRemoval() {
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
         // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
         System.out.println("old list " + oldList.size());
@@ -25,8 +25,8 @@ public class ContactRemovalTest extends BaseTest {
 
         contactHelper.deleteContact(index);
 
-        app.getNavigationHelper().groupsPage();
-        app.getDriver().navigate().refresh();
+        browserController.getNavigationHelper().groupsPage();
+        browserController.getDriver().navigate().refresh();
         contactHelper.waitUntilPageLoads();
         // save new state
         ModifiedSortedList<ContactData> newList = contactHelper.getUiContacts();

@@ -16,7 +16,7 @@ public class GroupRemovalTest extends BaseTest {
 
     @Test
     public void deleteGroup() {
-        GroupHelper groupHelper = app.getGroupHelper();
+        GroupHelper groupHelper = browserController.getGroupHelper();
         // save old state
         ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
 

@@ -12,13 +12,13 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.HasCapabilities;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -30,8 +30,8 @@ import java.util.concurrent.TimeUnit;
 
 
 public class BrowserController {
-    public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
-    private static WebDriver driver;
+    public static ThreadLocal<EventFiringWebDriver> threadLocalDriver = new ThreadLocal<>();
+    private static EventFiringWebDriver driver;
 
     public WebDriverWait wait;
 
@@ -56,7 +56,7 @@ public class BrowserController {
 //      appModel.setContacts(getHibernateHelper().getListOfContacts());
     }
 
-    public WebDriver getDriver() {
+    public EventFiringWebDriver getDriver() {
         LocalDesiredCapabilities localDesiredCapabilities = new LocalDesiredCapabilities();
         String browser = properties.getProperty("browser", "googlechrome");
         // Переиспользование браузера тестов в том же потоке
@@ -87,7 +87,7 @@ public class BrowserController {
                     firefoxOptions.setCapability("marionette", true);
                     firefoxOptions.setBinary(properties.getProperty(TestProperties.WEBDRIVER_GECKO_BINARY));
                     System.setProperty(TestProperties.GECKO_DRIVER, properties.getProperty(TestProperties.GECKO_DRIVER_PATH));
-                    driver = new FirefoxDriver(firefoxOptions);
+                    driver = new EventFiringWebDriver(new FirefoxDriver(firefoxOptions));
                     threadLocalDriver.set(driver);
                     driver.manage().window().maximize();
                     break;
@@ -102,7 +102,7 @@ public class BrowserController {
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }*/
-                    driver = new ChromeDriver(localDesiredCapabilities.chrome());
+                    driver = new EventFiringWebDriver(new ChromeDriver(localDesiredCapabilities.chrome()));
                     threadLocalDriver.set(driver);
                     break;
                 case "mobileApp":
@@ -123,7 +123,7 @@ public class BrowserController {
                     internetExplorerOptions.setCapability("unexpectedAlertBehaviour", "dismiss");
                     System.setProperty(TestProperties.IE_DRIVER_BINARY, "C:/Program Files/Internet Explorer/iexplore.exe");
                     System.setProperty(TestProperties.IE_DRIVER, properties.getProperty(TestProperties.IE_DRIVER));
-                    driver = new InternetExplorerDriver(internetExplorerOptions);
+                    driver = new EventFiringWebDriver(new InternetExplorerDriver(internetExplorerOptions));
                     threadLocalDriver.set(driver);
                     System.out.println(((HasCapabilities) driver).getCapabilities());
                     break;
@@ -139,7 +139,7 @@ public class BrowserController {
         }
         /*Runtime.getRuntime().addShutdownHook(
                 new Thread(() -> { driver.quit(); driver = null; }));*/
-        return driver;
+        return new EventFiringWebDriver(driver);
     }
 
     public GroupHelper getGroupHelper() {

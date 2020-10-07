@@ -15,7 +15,7 @@ public class GroupModificationTest extends BaseTest {
 
     @Test(dataProvider = "randomValidGroupGenerator")
     public void deleteGroup(GroupData group) {
-        GroupHelper groupHelper = app.getGroupHelper();
+        GroupHelper groupHelper = browserController.getGroupHelper();
         // save old state
         ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
         System.out.println("old list " + oldList.size());

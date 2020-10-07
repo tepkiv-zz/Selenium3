@@ -37,7 +37,7 @@ public class ContactCreationTest extends BaseTest {
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactCreation(ContactData contact) throws Exception {
         String generatedFirstname = generateRandomString();
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
 
         // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
@@ -75,7 +75,7 @@ public class ContactCreationTest extends BaseTest {
 
     @Test(dataProvider = "contactsFromXMLFile")
     public void testValidGroupCreationFromXMLFile(ContactData contact) throws Exception {
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
 
         // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
@@ -92,7 +92,7 @@ public class ContactCreationTest extends BaseTest {
     @Test(dataProvider = "contactsFromCSVFile")
     public void testContactCreationFromFile(ContactData contact) throws Exception {
         String generatedFirstname = generateRandomString();
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
 
         // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
@@ -120,20 +120,20 @@ public class ContactCreationTest extends BaseTest {
 
     @Test(dataProvider = "contactsFromXMLFile")
     public void testGroupCreationChecksFromDB(ContactData contact) throws Exception {
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
 
-        ModifiedSortedList<ContactData> oldList =  app.getAppModel().getContacts();
+        ModifiedSortedList<ContactData> oldList = browserController.getAppModel().getContacts();
 
         contactHelper.createContact(contact);
 
-        ModifiedSortedList<ContactData> newList =  app.getAppModel().getContacts();
+        ModifiedSortedList<ContactData> newList = browserController.getAppModel().getContacts();
 
         assertThat(newList, equalTo(oldList.withAdded(contact)));
 
 
-        assertThat(app.getAppModel().getContacts(),equalTo(app.getHibernateHelper().getListOfContacts()));
+        assertThat(browserController.getAppModel().getContacts(), equalTo(browserController.getHibernateHelper().getListOfContacts()));
 
-        assertThat(app.getAppModel().getContacts(),equalTo(app.getContactHelper().getUiContacts()));
+        assertThat(browserController.getAppModel().getContacts(), equalTo(browserController.getContactHelper().getUiContacts()));
     }
 
 }

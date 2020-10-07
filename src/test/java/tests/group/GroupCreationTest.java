@@ -13,7 +13,7 @@ public class GroupCreationTest extends BaseTest {
 
     @Test(dataProvider = "randomValidGroupGenerator")
     public void testValidGroupCreation(GroupData group) throws Exception {
-        GroupHelper groupHelper = app.getGroupHelper();
+        GroupHelper groupHelper = browserController.getGroupHelper();
         // save old state
         ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
 
@@ -28,7 +28,7 @@ public class GroupCreationTest extends BaseTest {
 
     @Test(dataProvider = "groupsFromXMLFile")
     public void testValidGroupCreationFromXMLFile(GroupData group) throws Exception {
-        GroupHelper groupHelper = app.getGroupHelper();
+        GroupHelper groupHelper = browserController.getGroupHelper();
         // save old state
         ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
        
@@ -43,7 +43,7 @@ public class GroupCreationTest extends BaseTest {
 
     @Test(dataProvider = "groupsFromCSVFile")
     public void testValidGroupCreationFromCSVFile(GroupData group) throws Exception {
-        GroupHelper groupHelper = app.getGroupHelper();
+        GroupHelper groupHelper = browserController.getGroupHelper();
         // save old state
         ModifiedSortedList<GroupData> oldList = groupHelper.getUiGroups();
        
@@ -58,21 +58,21 @@ public class GroupCreationTest extends BaseTest {
 
     @Test(dataProvider = "groupsFromXMLFile")
     public void testGroupCreationChecksFromDB(GroupData group) throws Exception {
-        GroupHelper groupHelper = app.getGroupHelper();
+        GroupHelper groupHelper = browserController.getGroupHelper();
 
-        ModifiedSortedList<GroupData> oldList = app.getAppModel().getGroups();
+        ModifiedSortedList<GroupData> oldList = browserController.getAppModel().getGroups();
 
         groupHelper.createGroup(group);
 
-        ModifiedSortedList<GroupData> newList = app.getAppModel().getGroups();
+        ModifiedSortedList<GroupData> newList = browserController.getAppModel().getGroups();
 
         assertThat(newList, equalTo(oldList.withAdded(group)));
-        if(ttc()){
-            assertThat(app.getAppModel().getGroups(),equalTo(app.getGroupHelper().getUiGroups()));
+        if (ttc()) {
+            assertThat(browserController.getAppModel().getGroups(), equalTo(browserController.getGroupHelper().getUiGroups()));
         }
 
-        if (app.getProperty("database.check").equals("true")){
-            assertThat(app.getAppModel().getGroups(), equalTo(app.getHibernateHelper().getListOfGroups()));
+        if (browserController.getProperty("database.check").equals("true")) {
+            assertThat(browserController.getAppModel().getGroups(), equalTo(browserController.getHibernateHelper().getListOfGroups()));
         }
     }
 

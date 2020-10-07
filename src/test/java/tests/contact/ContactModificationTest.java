@@ -16,7 +16,7 @@ public class ContactModificationTest extends BaseTest {
 
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactModification(ContactData contact) {
-        ContactHelper contactHelper = app.getContactHelper();
+        ContactHelper contactHelper = browserController.getContactHelper();
         // save old state
         ModifiedSortedList<ContactData> oldList = contactHelper.getUiContacts();
         System.out.println(oldList.size());

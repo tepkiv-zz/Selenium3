@@ -36,6 +36,13 @@ public class OpenWholeSidebarTest extends BaseTest {
             assertThat(driver.findElement(By.xpath(breadcrumb)).getText())
                     .as("Title should be displayed at the main page.").contains(title);
 
+            int indx = 0;
+            if (driver.manage().logs().get("browser").getAll().size() > indx) {
+                assertThat(driver.manage().logs().get("browser").getAll().get(indx).getMessage()).doesNotContain("Error");
+                indx += 1;
+
+            }
+
             // Go through menu item sub list
             for (int j = 0; j < driver.findElements(By.xpath(SideBar.menuLines)).get(i).findElements(By.xpath(SideBar.menuSubLine)).size(); j++) {
                 WebElement subRow = driver.findElements(By.xpath(SideBar.menuLines)).get(i).findElements(By.xpath(SideBar.menuSubLine)).get(j);
