@@ -1,5 +1,6 @@
 package com;
 
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -20,17 +21,21 @@ public class LocalDesiredCapabilities {
         options.addArguments("disable-infobars", "--no-sandbox");
         options.addArguments("--start-maximized");
         options.setExperimentalOption("useAutomationExtension", false);
+        options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        options.setCapability("chrome.switches", Collections.singletonList("--ignore-certificate-errors"));
+        options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.DISMISS_AND_NOTIFY);
+        // Preferences
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("safebrowsing.enabled", true);
         chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.prompt_for_download", "false");
         chromePrefs.put("plugins.always_open_pdf_externally", true);
         options.setExperimentalOption("prefs", chromePrefs);
-        options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-        options.setCapability("chrome.switches", Collections.singletonList("--ignore-certificate-errors"));
+        // logs
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
         options.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+
         return options;
     }
 

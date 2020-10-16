@@ -3,6 +3,8 @@ package com;
 
 import com.google.common.io.Files;
 import com.litecart.LoginPage;
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -67,20 +69,6 @@ public class BaseTest implements HasPriority {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(xpath));
     }
 
-    public boolean ttc() {
-        checkCounter++;
-        if (checkCounter > checkFrequency) {
-            checkCounter = 0;
-            return true;
-
-        } else {
-            return false;
-        }
-    }
-
-    public Double getFontSize(WebElement element) {
-        return Double.parseDouble(element.getCssValue("font-size").replace("px", ""));
-    }
 
     @BeforeTest
     public void setUp() throws Exception {
@@ -89,6 +77,12 @@ public class BaseTest implements HasPriority {
         driver = browserController.getDriver();
         wait = browserController.getWait();
         driver.register(new EventListener());
+
+        BrowserMobProxy proxy = new BrowserMobProxyServer();
+        proxy.start(0);
+        int port = proxy.getPort(); // get the JVM-assigned port
+        // Selenium or HTTP client configuration goes here
+
         checkCounter = 0;
         checkFrequency = Integer.parseInt(properties.getProperty("check.frequency", "0"));
     }
@@ -154,6 +148,21 @@ public class BaseTest implements HasPriority {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean ttc() {
+        checkCounter++;
+        if (checkCounter > checkFrequency) {
+            checkCounter = 0;
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    public Double getFontSize(WebElement element) {
+        return Double.parseDouble(element.getCssValue("font-size").replace("px", ""));
     }
 
 }
