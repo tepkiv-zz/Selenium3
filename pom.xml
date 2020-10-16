@@ -46,7 +46,7 @@
         <jboss-transaction-api_1.2_spec>1.0.1.Final</jboss-transaction-api_1.2_spec>
         <hamcrest-core>2.2</hamcrest-core>
         <poi-ooxml>3.9</poi-ooxml>
-        <junit>4.12</junit>
+        <junit>4.13.1</junit>
         <log4j-api>2.13.3</log4j-api>
         <log4j-core>2.13.2</log4j-core>
         <java-client>7.2.0</java-client>
