@@ -47,7 +47,7 @@
         <hamcrest-core>2.2</hamcrest-core>
         <poi-ooxml>3.9</poi-ooxml>
         <junit>4.12</junit>
-        <log4j-api>2.13.3</log4j-api>
+        <log4j-api>2.16.0</log4j-api>
         <log4j-core>2.13.2</log4j-core>
         <java-client>7.2.0</java-client>
         <google-java-format>1.8</google-java-format>
